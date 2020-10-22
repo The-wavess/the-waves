@@ -1,0 +1,61 @@
+.header_1{width: 100%;height: 441px;justify-content: center;position: relative;top:51px;}
+.men{width: 1100px;margin: 0 auto ; margin-top: 90px;}
+.border_men{width: 770px;position: relative;}
+.border_p{color: #FFA500;font-size: 30px;padding-bottom:30px;}
+.border_p1{color: #FFA500;font-size: 30px;padding:30px 0;margin-top:50px;}
+
+.men_font{font-size: 14px;color: #FFA500;position: absolute;right: 10px;top: 20px;}
+.men_text{font-size:14px;color:orange;}
+.men_rbai{font-size: 20px;color:#000;}
+.men_rfirst>p{padding-top: 20px;}
+.men_rfirst{
+	width: 100%;
+	border:1px solid #ddd;
+	padding:  10px ;
+	padding-top:20px
+}
+.right_ul{margin-top:10px;align-items: center;}
+.right_ul>li{width: 100%;height: 40px;padding:5px 0;line-height: 40px;}
+.men_div_2>div>li{margin:35px 0;}
+.men_div_2>div a>span+span{color:orange;float: right;font-size:14px;}
+.men_text_1{font-size:16px;color:#000;}
+.men_text_2{color:orange;font-style: italic;margin-right:10px;}
+.men_text_3{color:#aaa;font-style: italic;margin-right:10px;}
+.men_border_ul{
+			width: 100%;
+			display: block;
+			display: flex;
+		justify-content: space-around;
+			flex-wrap: wrap;
+			padding-top:30px ;
+}
+.men_border_ul>li{
+	margin-bottom: 30px;
+}
+.men_border_ul>li>img{width: 160px;height: 200px;}
+.men_border_ul>li>p{display: flex;display: block;text-align: center;
+width: 160px;height: 25px;border: 1px solid #eee;padding-top: 5px;
+}
+.men_border_ul>li>p>a{color: #FFA500;}
+.men_border_ul>li>p:hover{background-color: #ddd;box-shadow:0 3px 3px 1px  #eee;
+
+}
+.men_div_2{
+	width: 360px;padding-left: 90px;
+}
+.flex_1{display: flex;width:100%;flex-wrap: wrap;border:1px solid #eee;background-color:rgba(200,200,200,.1);}
+.right_flex_div{width: 16px;height: 95px;padding:10px 15px;background-color:orange;color:#fff;font-size:16px;}
+.right_span{overflow-block: scroll;}
+.right_piao{font-size:30px;color:orange;}
+.right_wan{font-size:14px;color:orange;}
+.right_bei{font-size:14px;color:#aaa;}
+.flex_2{width: 255px;padding-top:20px;padding-left: 15px;}
+.flex_right{margin-bottom:50px;}
+.flex_1>div p+p{float:right;}
+.float_right{float:right; padding-top:20px;}
+.men_rfirst:hover,.men_text_1:hover,.right_ul>li:hover{background-color:rgba(200,200,200,.1);}
+.right_border{border:1px solid #ddd;}
+#men_right>div{margin:20px 0; }
+#men_right>div+div{margin-left:15px;}
+#men_right>div>p{padding:5px;}
+#right_yu{margin-top:25px;margin-left: 9px;}
