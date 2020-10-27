@@ -1,6 +1,6 @@
 <template>
   <div id="pp">
-      <div class="bordeer_xia">
+      <div class="bordeer_xia" @click="display">
 		<div class="index head_center">
 			<div class="header_mao  flex">
 				<img class="_center" src="../../public/move_img/logo.png" >
@@ -15,9 +15,9 @@
 				
 			</div>
 			<div id="anniu">
-				<li><router-link :class="{active:data=='/men'}" to="/men" data-name="index">首页</router-link></li>
-				<li><router-link  :class="{active:data=='/index'}" to="/index" data-name='men'>电影</router-link></li>
-				<li><router-link   to="">影院</router-link></li>
+				<li><router-link :class="{active:data=='/men'}" to="/men" data-name="move_index">首页</router-link></li>
+				<li><router-link  :class="{active:data=='/move_index'}" to="/move_index" data-name='men'>电影</router-link></li>
+				<li><router-link   :class="{active:data=='/xiang'}" to="/xiang" data-name='xiang'>影院</router-link></li>
 				<li><router-link   to="">演出</router-link></li>
 				<li><router-link   to="">榜单</router-link></li>
 				<li><router-link   to="">热点</router-link></li>
@@ -36,8 +36,16 @@
 					</button>
 				</div>
 				<div id="sousuo" class="index flex">
-					<input class="_center"  placeholder="找影视剧,影人,影剧"  @click="seach($event)" />
-					<img src="../../public/move_img/002.jpg" alt="">
+					<input class="_center" placeholder="找影视剧,影人,影剧"/>
+					<div id="sousuo2">
+					<router-link v-for="(p,i) of arr" :key="i" :to="`/detail?move_sid=${p.move_sid}`"  >
+						<li>
+							<img :src="p.move_img"    alt="">
+							<span>{{p.move_name}}</span>
+						</li>
+					</router-link>
+					</div>
+					<img src="../../public/move_img/002.jpg" @click="seach($event)" alt="">
 					<div class="ul_px flex _center">
 						<img src="../../public/move_img/user.png" >
 						<div class="deg _center"></div>
@@ -115,7 +123,7 @@ ul,li{margin: 0 ;padding: 0;}
 	top: 80px;
 	left: -1px;
 	display: none;
-	z-index: 10;
+	z-index: 888;
 	background-color: #fff;
 }
 .header_an>button:hover>div:nth-child(2){
@@ -261,7 +269,34 @@ position: absolute;
 top: 19px;
 left:200px;
 }
-
+#sousuo2{
+	border: 1px solid #ddd;
+	width: 250px;
+	height: 300px;
+	background: #fff;
+	position: absolute;
+	top: 65px;
+	left: 0;
+	z-index: 10;
+	display: none;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+#sousuo2 li{
+	line-height: 50px;
+	padding: 10px 5px;
+	border-bottom: 1px dotted #ddd;
+	color: #000;
+}
+#sousuo2 li:hover{
+	background-color: #eee;
+}
+#sousuo2 img{
+	width: 50px;
+	height:50px;
+	margin-right: 15px;
+	
+}
 
 .header{height: 60px;text-align: center; background-color: #47464a;}
 .header a{display: block;text-align: center;margin-top: 20px;color: #aaa;}
@@ -333,45 +368,72 @@ text-align: left;
 
 <script>
 	export default{
-		data(){
-			return{
-				data:"",
-				active:false,
-				active2:false,
-				like:'动作',
-	
-			}
-		},
-		mounted(){
-			let data=this.$route.path
-			console.log(this.$route)
-			
-			console.log(data)
-			this.data=data
-			if(data == 'men'){
-				this.active =true
-			}else{
-				this.active = false
-			}
-			if(data == 'index'){
-				this.active2 = true
-			}else{
-				this.active2 = false
-			}
+	data(){
+		return{
+			data:"",
+			active:false,
+			active2:false,
+			like:'动作',
+			arr:[],
+
+		}
+	},
+	mounted(){
+		let data=this.$route.path
+		this.data=data
+		if(data == 'men'){
+			this.active =true
+		}else{
+			this.active = false
+		}
+		if(data == 'move_index'){
+			this.active2 = true
+		}else{
+			this.active2 = false
+		}
+		if(data == 'xiang'){
+		this.active2 = true
+		}else{
+		this.active2 = false
+		}
+	},
+	watch:{
+		'$route'(){
+			this.data=this.$route.path
+		}
+	},
+methods:{
+	seach(e){
+		let input = document.querySelector('input._center')
+		let div = document.getElementById('sousuo2')
+		
+		let value=input.value
+		this.like = value
 			this.axios.get('/header/'+ this.like).then(res=>{
-				let data=res.data.resules
-			})
-		},
-		watch:{
-			'$route'(){
-				this.data=this.$route.path
+			 let obj=res.data.results
+	for(let i=0;i<obj.length - 1 ;i++){
+		if(!i == 0){
+			if(obj[i].move_name != obj[i-1].move_name){
+				this.arr.push(obj[i])
 			}
-		},
-		methods:{
-			seach(e){
-				let value= this.e.target.value
-				console.log(value)
+		}else{
+			this.arr.push(obj[0])
 			}
+		 
+		 }
+		if(this.arr.length >= 0){
+			 	div.style.display = 'block'
+		 }
+
+
+		  })
+
+
+		},
+		display(){
+			let div = document.getElementById('sousuo2')
+				div.style.display = 'none'
 		}
 	}
+}
 </script>

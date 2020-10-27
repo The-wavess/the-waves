@@ -1,5 +1,6 @@
 <template>
     <div>
+     <move_header></move_header>
       <div v-for="(x,n) of data" :key="n">
          <div id="beijing"> </div>  
         <div class="ying_div">
@@ -11,7 +12,7 @@
 					<p>{{x.move_desc}}</p>
 					<p>电话：029-62358787</p>
 					<p>影院服务 ————————————————————————</p>
-						<span>改签 </span><p>{{x.M_tui}}}</p><br>
+						<span>改签 </span><p>{{x.M_tui}}</p><br>
 						<span>安心影院</span><p>每日消毒，隔座售卖，全员佩戴口罩，进门需体温测量</p><br>
 						<span>3D眼睛</span><p>{{x.M_yanj}}</p><br>
 						<span>儿童优惠</span><p>{{x.M_boby}}</p><br>
@@ -27,19 +28,27 @@
 				<span>香港未来影院 &gt;</span> 
 			</ul>
 			<ul class="lunbo">
-				<img :src="p.move_img" alt="" v-for="(p,i) of move2" :key="i">
+      <div v-for="(p,i) of move2" :key="i">  
+				<img :src="p.move_img"  @click="fangda($event,p)" :class="{fangda2:i == sa}" :data-sa="i"  alt="">
+      </div>
 				<li class="sanjiao"></li>
+        <li class="right" @click="right(i)">
+          <img src="../../public/move_img/left.png" alt="">
+        </li>
+        <li class="left" @click="left(i)">
+            <img src="../../public/move_img/right.png" alt="">
+        </li>
 			</ul>
 			
 			<ul>
-				<p class="pingfen">{{ move_name[move_sid - 1]}} &nbsp;&nbsp;
-				<span>{{move_momment[move_sid - 1]}}</span><span>分
+				<p class="pingfen">{{ obj[0].move_name}} &nbsp;&nbsp;
+				<span>{{obj[0].move_momment}}</span><span>分
         </span>
 			</p>
 			<li class="ying_xq">
-				<p>时长：<span>{{move_timelog[move_sid - 1]}}分钟</span></p>
-				<p>类型：<span>{{move_type[move_sid - 1]}}</span></p>
-				<p>主演：<span>{{actor[move_sid - 1]}}</span></p>
+				<p>时长：<span>{{obj[0].move_timelog}}分钟</span></p>
+				<p>类型：<span>{{obj[0].move_type}}</span></p>
+				<p>主演：<span>{{obj[0].move_music}}</span></p>
 			</li>
 			<li class="ying_xq2">
 				<p>观影时间:</p>
@@ -66,11 +75,13 @@
       </table>
 			<ul class="ying_tfoot">
 				<p>相关影院</p>
-				<span><router-link to="">万达影城</router-link></span>
+				<span v-for="(p,i) of obj" :key="i"><router-link to="">{{p.name}}</router-link></span>
 			</ul>
         </div>
     </div>
+     <move_footer></move_footer>
     </div>
+    
 </template>
 <style  scoped>
 	#beijing{
@@ -143,11 +154,18 @@ margin: 10px 0;
   color: #555;
   font-size:14px;
 }
+.fangda2{
+  transition: 0.2s all;
+  margin-top: 0 !important;
+  width: 160px !important;
+  height: 220px !important;
+  border: 3px solid orange !important;
+}
 .lunbo{
- padding: 30px 20px 30px 3px;
-  margin:20px;
+  margin:20px 0;
   background-color: #eee;
-  height:186px;
+  height:250px;
+  width: 100%;
   overflow: hidden;
   display: flex;
   flex-wrap: nowrap;
@@ -155,23 +173,45 @@ margin: 10px 0;
   text-align: center;
   position: relative;
 }
-.lunbo>img{
+.lunbo>div{
+  width: 170px;
+  height: 230px;
+  display: table;
+  margin: 10px 15px;
+
+}
+.lunbo div>img{
   width: 132px;
   height: 186px;
-  margin-right: 28px;
+  margin-top: 20px;
   border: 3px solid #ffffff;
-  float: left;
   box-shadow: 0 1px 3px 0 hsla(0,0%,66%,.5);
+	transition: 0.2s all;
 }
+.lunbo>li>img{
+  width: 100px;
+  height: 100px;
+}
+.left{
+  position:absolute;
+  left: -20px;
+  top: 25%;
+}
+.right{
+  position:absolute;
+  top: 25%;
+ right: -20px;
+}
+
 .sanjiao{
-  display: inline-block;
+display: inline-block;
 border-top: 12px solid transparent;
 border-bottom: 12px solid transparent;
 border-left: 12px solid #ffffff;
 transform: rotate(-90deg);
 position: absolute;
-bottom: -6px;
-left: 60px;
+bottom: -8px;
+left: 90px;
 
 }
 .pingfen{
@@ -267,39 +307,85 @@ table>tr:nth-child(2)>td:last-child>a{
           move_type:[],
           actor:[],
           move_timelog:[],
-          actor:[]
+          actor:[],
+          obj:[],
+					sa:0,
+          i:0,
+          n:1,
+          pagecount:0,
+          obj:["obj"],
         }
       },
-      mounted(){
-        
-        let sid=this.$route.query.sid;
-        let lid = this.$route.query.move_sid
-        this.move_sid = parseInt(lid)
-        this.M_id = parseInt(sid)
-        this.axios.get('/ying/' + sid).then(res=>{
-          this.data=res.data.results;
-          console.log(this.data)
-         })
-        this.axios.get(`/detail/${lid}`).then(res=>{
-          this.move = res.data.result 
-          this.move.forEach((item)=>{
-            this.actor.push(item.actor)
-          })
-          })  
-             
-            
-        this.axios.get('/move_img').then(res=>{
-          this.move2=res.data.results
-          console.log(this.move2[0].move_name)
-          console.log(res.data.results)
-          this.move2.forEach((item)=>{
-            this.move_name.push(item.move_name)
-            this.move_momment.push(item.move_momment)
-            this.move_timelog.push(item.move_timelog)
-            this.move_type.push(item.move_type)
-        })
-        })
-
-      }
+  mounted(){
+      this.moveLimit()
+    let sid=this.$route.query.sid;
+    let lid = this.$route.query.move_sid
+    this.move_sid = parseInt(lid)
+    if(lid == undefined){
+      lid = 1
     }
+    console.log(this.obj)
+    this.M_id = parseInt(sid)
+    this.axios.get('/ying/' + sid).then(res=>{
+      this.data=res.data.results;
+      })
+    this.axios.get(`/detail/${lid}`).then(res=>{
+      this.move = res.data.result 
+      console.log(this.move)
+      this.move.forEach((item)=>{
+        this.actor.push(item.actor)
+      })
+      })  
+    this.moveLimit()
+      
+    this.axios.get('/xiang').then(res=>{
+      this.obj=res.data.results;
+    })
+  },
+  methods:{
+    moveLimit(){
+      this.axios.get('/move_index?n=' + this.n).then(res=>{
+      this.move2=res.data.results
+        this.move_sid = this.move2[0].move_sid
+      this.pagecount = res.data.pagecount
+      this.move2.forEach((item ,i)=>{
+        this.move_name.push(item.move_name)
+        this.move_momment.push(item.move_momment)
+        this.move_timelog.push(item.move_timelog)
+        this.move_type.push(item.move_type)
+       })  
+      })
+    },
+    fangda(e,p){
+        let img = e.target
+        this.sa=e.target.dataset.sa
+        this.i = this.sa
+        this.move_sid = p.move_sid
+         this. obj[0] = p 
+        let sanjiao = document.getElementsByClassName('sanjiao')
+        if(this.i == 0){
+            sanjiao[0].style.left='90px'
+        }else{
+          sanjiao[0].style.left= (this.i * 202) + 90 + 'px'
+        }
+        }	,
+    right(){
+  
+      if(this.n < this.pagecount){
+        this.n++
+      }
+      
+      this.moveLimit()
+    },
+     
+  left(){
+    if(this.n > 1){
+      this.n--
+    }
+    this.moveLimit()  
+    },					
+        
+    }
+ }   
+    
 </script>

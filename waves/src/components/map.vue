@@ -4,20 +4,11 @@
 </div>
 </template>
 <style scoped>
-        #container {
+      #container {
       width: 200px;
       height: 200px;
       margin: 0 auto;
       border: 1px solid #ccc;
-    }
-    #address,#location{
-        border: 2px solid #ccc;
-        width: 500px;
-        height: 50px;
-        margin: 20px auto;
-        text-align:center;
-        align-items: center;
-
     }
 </style>
 <script>
@@ -28,20 +19,7 @@ export default {
         }
     },
     mounted(){
-         let previnces = [
-          {
-              shortName:'北京',
-              fullName:'北京市',
-          },
-          {
-              shortName:'河南',
-              fullName:'河南省',
-          },
-          {
-              shortName:'陕西',
-              fullName:'陕西省',
-          },
-      ]
+  
     //获取定位对象
     let geo=navigator.geolocation;
     //调取对应方法

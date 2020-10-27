@@ -1,5 +1,6 @@
 <template>
     <div id="pp">
+	 <move_header></move_header>
         <div class="header_div font_small">
 	<table></table>
 	<div v-for="(p,i) of data" :key="i">
@@ -26,7 +27,7 @@
 								
 				评分</button>
 		</div>
-		<button class="te_button"> 预购</button>
+	<router-link :to="`/detail?move_sid=${p.move_sid}`"><button class="te_button"> 查看更多电影详情</button></router-link>
 	</div>
 	<div class="kou_header">
 	<p>猫眼口碑</p>
@@ -56,51 +57,40 @@
 				
 				<li>
 				<span><a href="#">日期：</a>
-					<span><a href="#">明天 9月7</a></span>
-					<span><a href="#">后天 9月8</a></span>
-					<span><a href="#">周三 9月9</a></span>
-					<span><a href="#">周四 9月10</a></span>
-					<span><a href="#">周五 9月11</a></span>	
+					<span><a href="#">明天 {{new Date().getMonth()+1}}月{{new Date().getDate() + 1}}日</a></span>
+					<span><a href="#">后天 {{new Date().getMonth()+1}}月{{new Date().getDate() + 2}}日</a></span>
+					<span><a href="#">{{new Date().getMonth()+1}}月{{new Date().getDate() + 3}}日</a></span>
+					<span><a href="#">{{new Date().getMonth()+1}}月{{new Date().getDate() + 4}}日</a></span>
+					<span><a href="#">{{new Date().getMonth()+1}}月{{new Date().getDate() + 5}}日</a></span>	
 			</span>
 				</li>
 			</ul>
 			<ul>
 				<li>
-					<span><a href="#">品牌：</a>
-					<span><a href="#">全部</a></span>
-					<span><a href="#">万达影城</a></span>
-					<span><a href="#">大地影院</a></span>
-					<span><a href="#">文投国际影城</a></span>
-					<span><a href="#">GGV影城</a></span>	
-					<span><a href="#">太平洋电影城</a></span>	
-					<span><a href="#">横店电影城</a></span>	
-					<span><a href="#">和平电影城</a></span>	
-					<span><a href="#">曲江国际电影城</a></span>	
-					<span><a href="#">UME国际影城</a></span>	
-					<span><a href="#">橙天嘉禾影城</a></span>	
-					<span><a href="#">博纳国际影城</a></span>	
+					<span><router-link to="">品牌：</router-link>
+					<span><router-link to="">全部</router-link></span>
+					<span v-for="(p,i) of obj" :key='i'><router-link  :to="`/ying?sid=${p.sid}&move_sid=${move_sid}`">{{p.name}}</router-link></span>
 				</span>
 				</li>
 				
 			</ul>
 			<ul>
-				<li><span><a href="#">行政区：</a>
-		
-					<span><a href="">全部</a></span>
-					<span><a href="#">地铁附近</a></span>
-					<span><a href="#">高陵区</a></span>	
-					<span><a href="#">未央区</a></span>
-					<span><a href="#">雁塔区</a></span>
-					<span><a href="#">新城区</a></span>
-					<span><a href="#">高新区</a></span>	
-					<span><a href="#">碑林区</a></span>	
-					<span><a href="#">灞桥区</a></span>	
-					<span><a href="#">莲湖区</a></span>	
-					<span><a href="#">长安区</a></span>	
-					<span><a href="#">临潼区</a></span>	
-					<span><a href="#">阎良区</a></span>	
-					<span><a href="#">蓝田县</a></span>	
-					<span><a href="#">周至县</a></span>	
+				<li><span><a href="javascript:;">行政区：</a>
+					<span><a href="javascript:;">全部</a></span>
+					<span><a href="javascript:;">地铁附近</a></span>
+					<span><a href="javascript:;">高陵区</a></span>	
+					<span><a href="javascript:;">未央区</a></span>
+					<span><a href="javascript:;">雁塔区</a></span>
+					<span><a href="javascript:;">新城区</a></span>
+					<span><a href="javascript:;">高新区</a></span>	
+					<span><a href="javascript:;">碑林区</a></span>	
+					<span><a href="javascript:;">灞桥区</a></span>	
+					<span><a href="javascript:;">莲湖区</a></span>	
+					<span><a href="javascript:;">长安区</a></span>	
+					<span><a href="javascript:;">临潼区</a></span>	
+					<span><a href="javascript:;">阎良区</a></span>	
+					<span><a href="javascript:;">蓝田县</a></span>	
+					<span><a href="javascript:;">周至县</a></span>	
 			</span>	
 				</li>
 			</ul>
@@ -155,7 +145,7 @@
 						<img src="move_img/saixuan.png" >
 						筛选</a>
 						<p>
-							<span>￥</span><span>35.9</span>
+							<span>￥</span><span>37.9</span>
 							起</p>
 <router-link :to="`/ying?sid=${p.sid}&move_sid=${move_sid}`"><button>选座购票</button></router-link>
 						<p>7.0km</p>
@@ -163,6 +153,7 @@
 		</ul>
 	</div>	
 	</div>	
+	 <move_footer></move_footer>
 	</div>
 </template>
 <style scoped>
@@ -184,7 +175,7 @@ padding: 0 20px;background: orange;border-radius: 20px; color: #fff;
 
 .xiang_div{border: 1px solid #aaa;width:75rem;border: 1px dashed #555;
 margin: 0 auto;padding-bottom: 50px;
-margin-top: 8.625rem;font-size: 14px;text-align: start;line-height: 40px;;}
+margin-top: 3.625rem;font-size: 14px;text-align: start;line-height: 40px;;}
 .xiang_div>div:first-child>ul:first-child{margin-top:1.25rem ;}
 .xiang_div>div:first-child>ul{
 font-size: 0.875rem;
@@ -391,28 +382,44 @@ background: rgba(250,250,255,.2);color:#fff;position: relative;padding-left:1.25
 </style>
 <script>
 export default {
+	provide(){
+        return{
+            reload:this.reload
+        }
+    },
 	data(){
 		return{
 			data:[],
 			obj:[],
-			move_sid:''
+			move_sid:'',
+			week:[],
 
 		}
 	},
 	mounted(){
+		
 		let lid=this.$route.query.move_sid
+		let div=document.getElementsByClassName('header_div font_small')
+			console.log(div)
+		if(!lid){
+		
+			div[0].style.display = 'none'
+		}
 		this.move_sid=lid
 		this.axios.get('/detail/' + lid).then(res=>{
 			this.data=res.data.results;
-		
 			 })
 
 		this.axios.get('/xiang').then(res=>{
 			this.obj=res.data.results;
-
 			 })
- 		let Month=new Date().getMonth()
-		let 	day = new Date().getDate()
+		let week=new Date().getDay() + 3
+		let day = new Date().getDate()
+		let	arr = ['周日','周一','周二','周三','周四','周五','周六']
+			for(let i in arr){
+				i = week 
+				this.week = arr[i]
+			}
 
 	}
 }

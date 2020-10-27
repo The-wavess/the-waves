@@ -1,5 +1,6 @@
 <template>
     <div id="pp">
+	 <move_header></move_header>
 		<div  v-for="(p,i) of data" v-if="i < 1" :key="i">
        <div class="header_div font_small">
             <table></table>
@@ -260,6 +261,7 @@
     
 		</div>  
 	</div>
+	 <move_footer></move_footer>
 </div>
 </template>
 <style scoped>
@@ -674,12 +676,14 @@ export default {
 			n:2,
 			first:true,
 			two:false,
-			three:false
+			three:false,
+			lid:1,
 
 		}
 	},
 	mounted(){
 		let lid=this.$route.query.move_sid;
+		this.lid = lid
 		if(lid==1){
 			this.type='动作'
 			this.n=2
@@ -725,7 +729,14 @@ export default {
 			this.first = false
 			this.two =false
 		}
-	}
+	},
+	// watch:{
+	// 	'$router.move_sid'(){
+	// 		this.lid = this.$route.query.move_sid
+	// 		location.reload()
+	// 	}
+	// }
+
 	
 }
 </script>

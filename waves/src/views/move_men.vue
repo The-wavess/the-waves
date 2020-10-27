@@ -1,5 +1,6 @@
 <template>
     <div id="pp">
+	 <move_header></move_header>
         <div id="lunbo1">
 			<div id="lunbo" class="header_1 flex" @mouseover="clears" @mouseout="clearout" :class="{transition:isTransition}">
 				<img v-for="(p,i) of lun" :key="i"   :src="p.lunbo" alt="图片加载出错" >
@@ -132,7 +133,7 @@
 					<div class="right_flex_div">今日大盘</div>
 					<div class="flex_2" v-for="(p,i) of maxdata" :key="i">
 						<router-link :to="`/detail?move_sid=${p.move_sid}`" class="right_piao">{{p.people}}<span class="right_wan">万</span></router-link>
-						<router-link to="/index" href="" class="right_wan">查看更多&gt;</router-link>			
+						<router-link to="/move_index" href="" class="right_wan">查看更多&gt;</router-link>			
 						<p class="right_bei">{{"北京时间 " + new Date().getHours() + ":" + new Date().getMinutes() + ":" + new Date().getSeconds()}}</p>
 						<p class="right_bei">猫眼专业版实时票房数据</p>
 					</div>
@@ -195,7 +196,7 @@
 					</div>
 					<ul class="right_ul">
 					<li v-for="(p,i) of data2" :key="i">
-						<router-link :to="`/detail?move_sid=${p.move_sid}`" href="#" class="men_text_1"><span class="men_text_2">{{i+2}}</span> {{p.move_name}}<span>{{p.people +　"万"}}</span> </router-link>
+						<router-link :to="`/detail?move_sid=${p.move_sid}`" class="men_text_1"><span class="men_text_2">{{i+2}}</span> {{p.move_name}}<span>{{p.people +　"万"}}</span> </router-link>
 					</li>
 						
 					</ul>
@@ -207,6 +208,7 @@
 </div>
 	
 </div>
+ <move_footer></move_footer>
 </div>
 </template>
 <style scoped>
@@ -557,7 +559,7 @@ width: 140px;height: 25px;padding-top: 5px;
 color: #999;font-size: 14px;margin-top: 5px;
 }
 .men_border_ul>li p>a{color: #FFA500;border: 1px solid #ddd;}
-.men_border_ul>li p:hover a{background: #FFA500;}
+.men_border_ul>li p:hover a{background: #FFA500;border: 1px solid orange;}
 .men_border_ul>li div:hover{
 box-shadow:0 1px 6px 1px  #eee;
 }
@@ -791,14 +793,11 @@ span.right_wan.float_right{
 					maxdata:[],
 					maxdata2:[],
 					maxdata3:[],
-					maxdata4:[],
-
-			
+					maxdata4:[],			
 				
 			}
 		},
 		mounted(){
-			
 			this.axios.get("/move_name").then(res=>{	
 				this.lun=res.data.results;
 				this.lunbo=res.data.results[0];
@@ -833,12 +832,8 @@ span.right_wan.float_right{
 			
 		})	
 			this.movesTo()
-			let ul=document.getElementById('yuandian')
-			let ulimg=document.getElementById('lunbo')
-			// console.log(ul,ulimg)
-			this.img=ulimg.children
-			this.lis=ul.children
-			setInterval(()=>{
+			this.li=this.i
+			this.timer=setInterval(()=>{
 				this.li=this.i
 				this.i++;
 				if(this.i==5){
@@ -849,62 +844,43 @@ span.right_wan.float_right{
 					this.isTransition=true
 				}
 				this.movesTo(this.i)
-			},2000)
+			},3000)
 	},
 	methods:{
 
-		right(to){
-			let lunbo=document.querySelector('.header_1')
-			let li=this.lis[this.i]
-		
-				if(to==undefined){
-					to=this.i+1;
+		right(){
+			this.li=this.i
+				this.i++;
+				if(this.i==5){
+					this.isTransition=false;
+					this.i=0
 				}
-				if(to == 0){
-					if(to)
-					lunbo.style.transition =' 0s all'
+				if(this.i==1){
+					this.isTransition=true
 				}
-				this.i=to
-					if(to > this.img.length - 1){
-						this.i = 0
-					}
-				lunbo.style.right=this.i*1200 + 'px'
-		},
-		left(to){
+			this.movesTo(this.i)
+				 clearInterval(this.timer)
 			
-
-			// let lunbo=document.querySelector('.header_1')
-		let lunbo=document.querySelector('.header_1')
-			let li=this.lis[this.i]
-				// li.className='active'
-	
-				if(to==undefined){
-					to=this.i-1;
+		},
+		left(){
+			this.li=this.i
+				this.i--;
+				if(this.i==-1){
+					this.isTransition=false;
+					this.i=4
 				}
-				if(to == 0){
-					if(to)
-					lunbo.style.transition =' 0s all'
+				if(this.i==3){
+					this.isTransition=true
 				}
-				this.i=to
-				
-					// for(let li of this.lis){
-					// 	li.className= " "
-					// }
-					// if(this.i == 4){
-					// 	setTimeout(()=>{
-					// 		li.className=' '
-					// 		this.i=0
-					// 	},100)
-					// }
-					if(to < 0){
-						this.i = 3
-					}
-				lunbo.style.right=this.i*1200 + 'px'
+			this.movesTo(this.i)
+				 clearInterval(this.timer)
+			
 		},
 		movesTo(i){
+			this.li=this.i
+
 			let lunbo=document.querySelector('.header_1')
 				// li.className='active'
-			console.log(this.li)
 			lunbo.style.right=i*1200+'px'
 			this.li=i;
 			if(this.li==4){
@@ -916,12 +892,24 @@ span.right_wan.float_right{
 			 clearInterval(this.timer)
 		},
 		clearout(){
-		this.movesTo()
+		this.timer=setInterval(()=>{
+				this.li=this.i
+				this.i++;
+				if(this.i==5){
+					this.isTransition=false;
+					this.i=0
+				}
+				if(this.i==1){
+					this.isTransition=true
+				}
+				this.movesTo(this.i)
+			},3000)
 		},
 		
 	active(e){
 		this.i=e.target.dataset.num;
 		this.movesTo(this.i)
+		 clearInterval(this.timer)
 		// let ul=document.getElementById('yuandian')
 
 	}
