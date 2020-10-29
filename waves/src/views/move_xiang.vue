@@ -290,17 +290,18 @@ display: inline-block;
 background-image: url(../../public/move_img/debg.png);
 color:#fff;position: relative;top:0;}
 #heade_id{position: relative;}
-#heade_id img{width: 240px;height: 330px;float: left;border: 4px solid #fff;margin-top:60px;margin-left:130px;margin-right:30px;}
-#header_p{margin-top:60px;position: absolute;left: 420px;text-align: start;}
+#heade_id img{width: 240px;height: 330px;float: left;border: 4px solid #fff;margin-top:60px;margin-left:250px;margin-right:30px;}
+#header_p{margin-top:60px;position: absolute;left: 550px;text-align: start;margin: 5px 0;top: 60px;}
 #header_p>p:first-child{font-size: 26px;color:#fff;}
 #header_p>p:nth-child(2){font-size: 18px;color: #fff;margin-bottom:20px;}
+#header_p>a:nth-child(3){color: #fff;}
 #header_p>p:nth-child(4){font-size: 14px;color: #fff;margin:5px 0;}
 .kan_button{width: 120px;height: 36px;margin-right:10px;margin-top:60px;
 background: rgba(250,250,255,.2);color:#fff;position: relative;padding-left:1.25rem;}
 .kan_button>img{position: absolute;top: 0.5625rem;left: 2rem;}
 
 .te_button{width: 255px; height: 40px;margin-top:10px;background: #f00;color:#fff;font-size: 16px;}
-.kou_header{position:absolute;left:740px;bottom:0;}
+.kou_header{position:absolute;left:850px;bottom:0;}
 .star_p{display: block;display: flex;width: 140px;}
 .star_p>span>img{margin: 0 -0.1rem;}
 .kou_header>p:nth-child(2){margin:3px 0;}
@@ -400,10 +401,11 @@ export default {
 		
 		let lid=this.$route.query.move_sid
 		let div=document.getElementsByClassName('header_div font_small')
-			console.log(div)
+
 		if(!lid){
 		
 			div[0].style.display = 'none'
+		
 		}
 		this.move_sid=lid
 		this.axios.get('/detail/' + lid).then(res=>{

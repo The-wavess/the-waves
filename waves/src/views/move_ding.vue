@@ -530,7 +530,6 @@
 
 				if (reg.test(this.phone)) {
 					span.style.color = "orange"
-					console.log(1)
 				}
 
 
@@ -545,8 +544,9 @@
 				let index = e.target.dataset.index
 				console.log(e, index)
 				let img = e.path[0]
+				//判定电影座位如果未被买走，可选座，反之不可购买，重复选择取消选座
 				if (img.src == 'http://localhost:8080/move_img/zuo_0.png') {
-
+					//最多只能选择4个座位
 					if (this.zuo.length < 4) {
 						img.src = this.img_2
 						this.zuo.push({
@@ -561,7 +561,7 @@
 						})
 						this.zhezhao = true
 					}
-
+				//如果电影座位已经被买走，不可选座
 				} else if (img.src == 'http://localhost:8080/move_img/zuo_2.png') {
 					img.src = this.img_0
 				}

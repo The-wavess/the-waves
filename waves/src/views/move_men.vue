@@ -778,7 +778,7 @@ span.right_wan.float_right{
 		data(){
 			return{
 					lun:[],
-					lunbo:'1',
+					lunbo:1,
 					i:0,
 					li:0,
 					isTransition:true,
@@ -793,20 +793,23 @@ span.right_wan.float_right{
 					maxdata:[],
 					maxdata2:[],
 					maxdata3:[],
-					maxdata4:[],			
+					maxdata4:[],	
+							
 				
 			}
 		},
 		mounted(){
+			//轮播图接口
 			this.axios.get("/move_name").then(res=>{	
 				this.lun=res.data.results;
 				this.lunbo=res.data.results[0];
 			
 			});
-
+			//所有电影及电影相关接口
 	 		this.axios.get("/move_img").then(res=>{
-				 let data2=res.data.results
+				let data2=res.data.results
 				let  data=res.data.results
+			//按照人气榜排序
 				 data.sort((a,b)=>{return b.people - a.people})
 					this.maxdata.push(data[0])
 				let s=[]
@@ -823,6 +826,7 @@ span.right_wan.float_right{
 						}	
 							
 				})
+			//按照热门电影排序接口
 			this.data2.shift()
 				function fun(a,b){return b.xiangkan - a.xiangkan}
 					data2.sort(fun)
@@ -878,9 +882,7 @@ span.right_wan.float_right{
 		},
 		movesTo(i){
 			this.li=this.i
-
 			let lunbo=document.querySelector('.header_1')
-				// li.className='active'
 			lunbo.style.right=i*1200+'px'
 			this.li=i;
 			if(this.li==4){

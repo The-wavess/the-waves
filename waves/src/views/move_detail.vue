@@ -174,7 +174,7 @@
             <p class="juqing detail_div">
 							<span class="juqing_div "></span>
 							热门短评
-						<span class="duanp">写短评</span>
+						<span class="duanp" @click="pinput">写短评</span>
 						</p>
 						<div>
 							<ul class="pinglun">
@@ -197,26 +197,10 @@
 									<p class="pinglun_l">土拨鼠尖叫！！！也好看了吧！！！放映结束观众全体鼓掌！！！哪吒小爷太值了！！！跟敖丙CP我磕了！！！</p>
 								</li>
 							</ul>
-							<ul class="pinglun">
-									<img src="../../public/move_img/user_p1.jpg" >
-									<div><img src="move_img/vip4png.png" ></div>
-								<li>	
-									<p class="flex">杨谨婕了啦啦
-							<span>购</span>	</p>
-									<p>2020-7-21
-									<img src="move_img/star.png" >
-									<img src="move_img/star.png" >
-									<img src="move_img/star.png" >
-									<img src="move_img/star.png" >
-									<img src="move_img/star.png" >
-									<span class="zan">
-										<a href="#"><img src="../../public/move_img/zan.png" ></a>
-										75197
-									</span>
-									</p>
-									<p class="pinglun_l">土拨鼠尖叫！！！也好看了吧！！！放映结束观众全体鼓掌！！！哪吒小爷太值了！！！跟敖丙CP我磕了！！！</p>
-								</li>
-							</ul>
+								<div id="put">
+									<textarea id="pinput" @blur="hidden" class="pinput" placeholder="说点什么···"></textarea>
+									<a id="pbutton" type="button">发表</a>
+								</div>
 						</div>
         </div>
      </div>  
@@ -315,6 +299,36 @@ margin:0 20px 10px 0
 	border-right:1px solid #ddd;
 	border-bottom:1px solid #fff;
 
+}
+.pinput{
+	width: 100%;
+	height: 130px;
+	margin-top: 40px;
+	border: 1px solid orange;
+	box-shadow:  0 0 2px .1px orange;
+	overflow-x: hidden;
+	font-size: 18px;
+}
+#put{
+	width: 100%;
+	height: 130px;
+	display: none;
+}
+#pbutton{
+	background-color:orange ;
+	padding: 5px 20px;
+	color: #fff;
+	border-radius: 30px;
+	position: relative;
+	top: 10px;
+	left: 650px;
+	cursor: pointer;
+}
+textarea::placeholder{
+	position: relative;
+	left:20px;
+	top: 10px;
+	font-size: 18px;
 }
 .header_an>button>div:first-child{
 	position: absolute;
@@ -560,6 +574,7 @@ text-align: left;
 #header_p{margin-top:60px;position: absolute;left: 550px;text-align: start;}
 #header_p>p:first-child{font-size: 26px;color:#fff;}
 #header_p>p:nth-child(2){font-size: 18px;color: #fff;margin-bottom:20px;}
+#header_p>a:nth-child(3){color: #fff;}
 .kan_button{width: 120px;height: 36px;margin-right:10px;margin-top:60px;
 background: rgba(250,250,255,.2);color:#fff;position: relative;padding-left:1.25rem;}
 .kan_button>img{position: absolute;top: 0.5625rem;left: 2rem;}
@@ -615,7 +630,7 @@ background: rgba(250,250,255,.2);color:#fff;position: relative;padding-left:1.25
 
 #small_img{width: 126px;height: 126px;margin:0 2.5px;}
 
-.duanp{color: orange;border: 1px solid orange;
+.duanp{color: orange;border: 1px solid orange;cursor: pointer;
 border-radius: 1rem;font-size: 0.75rem;position: absolute;right: 0;
 padding:0.25rem 0.625rem;}
 .pinglun{margin-top: 1.25rem; display: flex;position: relative;}
@@ -691,15 +706,17 @@ export default {
 			this.type='喜剧'
 			this.n=1
 		}
+		//获取所有电影详情信息
 		this.axios.get('/detail/' + lid).then(res=>{
 			this.data=res.data.results;
 			this.data.push(res.data.result)
 
 				let data2={}
-			 this.data[1].forEach((item)=>{
-				 data2 = {small_img:`${item.small_img}`}
-				 this.data2.push(data2)
-			 })
+		//遍历小图片以及大图片信息
+		 this.data[1].forEach((item)=>{
+			 data2 = {small_img:`${item.small_img}`}
+			 this.data2.push(data2)
+		 })
 
 			this.data2.shift()
 		})
@@ -728,6 +745,18 @@ export default {
 			this.three = true
 			this.first = false
 			this.two =false
+		},
+		pinput(){
+			let put = document.getElementById('put')
+			put.style.display = 'block'
+
+		},
+		hidden(){
+			setTimeout(()=>{
+			let put = document.getElementById('put')
+			put.style.display = 'none'
+			},1000)
+		
 		}
 	},
 	// watch:{

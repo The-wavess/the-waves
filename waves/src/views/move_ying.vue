@@ -6,14 +6,14 @@
         <div class="ying_div">
 			<ul class="flex
 			">
-				<img src="../../public/move_img/move_yinyuan7.jpg" alt="">
+				<img :src="x.M_img" alt="">
 				<li class="ying_small">
 					<p>{{x.name}}</p>
 					<p>{{x.move_desc}}</p>
 					<p>电话：029-62358787</p>
 					<p>影院服务 ————————————————————————</p>
 						<span>改签 </span><p>{{x.M_tui}}</p><br>
-						<span>安心影院</span><p>每日消毒，隔座售卖，全员佩戴口罩，进门需体温测量</p><br>
+            <span>安心影院</span><p>{{x.M_gaiq}}</p><br>
 						<span>3D眼睛</span><p>{{x.M_yanj}}</p><br>
 						<span>儿童优惠</span><p>{{x.M_boby}}</p><br>
 						<span>可停车</span><p>{{x.M_stop}}</p><br>
@@ -40,15 +40,15 @@
         </li>
 			</ul>
 			
-			<ul>
-				<p class="pingfen">{{ obj[0].move_name}} &nbsp;&nbsp;
-				<span>{{obj[0].move_momment}}</span><span>分
+			<ul v-for="(p,i) of obj2" :key="i">
+				<p class="pingfen">{{ p.move_name}} &nbsp;&nbsp;
+				<span>{{p.move_momment}}</span><span>分
         </span>
 			</p>
 			<li class="ying_xq">
-				<p>时长：<span>{{obj[0].move_timelog}}分钟</span></p>
-				<p>类型：<span>{{obj[0].move_type}}</span></p>
-				<p>主演：<span>{{obj[0].move_music}}</span></p>
+				<p>时长：<span>{{p.move_timelog}}分钟</span></p>
+				<p>类型：<span>{{p.move_type}}</span></p>
+				<p>主演：<span>{{p.move_music}}</span></p>
 			</li>
 			<li class="ying_xq2">
 				<p>观影时间:</p>
@@ -80,7 +80,7 @@
         </div>
     </div>
      <move_footer></move_footer>
-    </div>
+   </div>
     
 </template>
 <style  scoped>
@@ -100,6 +100,8 @@ display: flex;margin-top: -294px;
   position: relative;
 }
 .ying_div>ul:first-child>img:first-child{
+  width: 292px;
+  height: 292px;
 position: absolute;left:30px;top: -22px;
 border: 4px solid #ffffff;
 z-index: 10;
@@ -313,30 +315,34 @@ table>tr:nth-child(2)>td:last-child>a{
           i:0,
           n:1,
           pagecount:0,
-          obj:["obj"],
+          obj2:[],
         }
       },
   mounted(){
+    // 调用分页函数
       this.moveLimit()
+      //电影院的ID
     let sid=this.$route.query.sid;
+    //接收电影的ID
     let lid = this.$route.query.move_sid
-    this.move_sid = parseInt(lid)
-    if(lid == undefined){
+    //如果没有ID传参，默认为1
+    if(lid == undefined || NaN){
       lid = 1
     }
-    console.log(this.obj)
+    this.move_sid = parseInt(lid)
     this.M_id = parseInt(sid)
+    //获取传参影院详情接口
     this.axios.get('/ying/' + sid).then(res=>{
       this.data=res.data.results;
       })
+      // 获取电影详情接口
     this.axios.get(`/detail/${lid}`).then(res=>{
       this.move = res.data.result 
-      console.log(this.move)
+      
       this.move.forEach((item)=>{
         this.actor.push(item.actor)
       })
       })  
-    this.moveLimit()
       
     this.axios.get('/xiang').then(res=>{
       this.obj=res.data.results;
@@ -346,7 +352,11 @@ table>tr:nth-child(2)>td:last-child>a{
     moveLimit(){
       this.axios.get('/move_index?n=' + this.n).then(res=>{
       this.move2=res.data.results
-        this.move_sid = this.move2[0].move_sid
+      if(this.obj2.length == 0){
+        this.obj2[0] = this.move2[0]
+      }
+       
+      this.move_sid = this.move2[0].move_sid
       this.pagecount = res.data.pagecount
       this.move2.forEach((item ,i)=>{
         this.move_name.push(item.move_name)
@@ -361,7 +371,7 @@ table>tr:nth-child(2)>td:last-child>a{
         this.sa=e.target.dataset.sa
         this.i = this.sa
         this.move_sid = p.move_sid
-         this. obj[0] = p 
+         this. obj2[0] = p 
         let sanjiao = document.getElementsByClassName('sanjiao')
         if(this.i == 0){
             sanjiao[0].style.left='90px'

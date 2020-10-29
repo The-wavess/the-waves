@@ -10,6 +10,27 @@
 					<div class="deg"></div>
 					<div>
 						<p>定位城市：<router-link to="">西安</router-link></p>
+						<p>
+							A  
+							<router-link to=""> <span>阿拉善</span></router-link>
+							<router-link to=""><span>鞍山</span></router-link>
+							<router-link to=""><span>安庆</span></router-link>
+							<router-link to=""><span>安阳</span></router-link>
+					    </p>
+						<p>
+							B 
+							<router-link to=""><span>北京</span> </router-link>
+							<router-link to=""><span>保定</span> </router-link>
+							<router-link to=""><span>蚌埠</span> </router-link>
+							<router-link to=""><span>包头</span> </router-link>
+						</p>
+						<p>
+							C
+								<router-link to=""><span>重庆</span></router-link>
+								<router-link to=""><span>成都</span></router-link>
+								<router-link to=""><span>长沙</span></router-link>
+								<router-link to=""><span>常州</span></router-link>
+						</p>
 					</div>
 				</button>
 				
@@ -50,7 +71,7 @@
 						<img src="../../public/move_img/user.png" >
 						<div class="deg _center"></div>
 						<div>
-							<router-link to="">登录</router-link>
+							<router-link to="/login">登录</router-link>
 						</div>
 					</div>
 				</div>
@@ -79,10 +100,10 @@ button{border:0;outline-style: 0;}
 	text-align: center;
 }
 #anniu>li>a{
-	padding-top: 26px;
+	padding-top:50% ;
 	color: #000;
 	width: 60px;
-	height: 54px;
+
 }
 
 
@@ -128,12 +149,23 @@ ul,li{margin: 0 ;padding: 0;}
 }
 .header_an>button:hover>div:nth-child(2){
 	display:block ;
+	
 }
 .header_an>button>div:nth-child(2)>p{
 margin-left:-120px;
 line-height: 40px;
 }
-.header_an>button>div:nth-child(2)>p>router-link:hover{
+.header_an>button>div:nth-child(2)>p span{
+	padding: 3px 5px;
+	color: #000;
+}
+.header_an>button>div:nth-child(2)>p+p{
+	margin-left: -70px;
+}
+.header_an>button>div:nth-child(2)>p:nth-child(2){
+	margin-left:-60px ;
+}
+.header_an>button>div:nth-child(2)>p:hover{
 cursor: pointer;
 }
 

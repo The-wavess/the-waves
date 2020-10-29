@@ -59,13 +59,13 @@ server.get('/move_img',(req,res)=>{
 server.get('/move_index',(req,res)=>{
   let n=req.query.n
       let sql='select move_sid from move_row';
-      let start=(n-1)*6
+      let start=(n-1)*18
       pool.query(sql,(err,results)=>{
           if(err) throw err;
         let rowpage=results.length
-        let pagecount=Math.ceil(rowpage/6) 
+        let pagecount=Math.ceil(rowpage/18) 
 
-    let sql='select *   from move_row  limit ' +  start + ',' + 6 ;
+    let sql='select *   from move_row  limit ' +  start + ',' + 18 ;
     pool.query(sql,(err,results)=>{
       if(err) throw err;
 

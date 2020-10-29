@@ -4,14 +4,14 @@
 	   <move_header></move_header>
         <div class="header">
 			<div  class="_center flex"  @click="ren($event)">	
-				<a data-num="1"  href="javascript:;">正在热映
-					<div :class="{sanjiao:inn==1}"></div>
+				<a data-num="1"  :class="{a:inn == 1}" href="javascript:;">正在热映
+					<div :class="{sanjiao:inn == 1}"></div>
 				</a>
-				<a data-num="2" href="javascript:;">即将上映
-					<div :class="{sanjiao:inn==2}"></div>
+				<a data-num="2" :class="{a:inn == 2}" href="javascript:;">即将上映
+					<div :class="{sanjiao:inn == 2}"></div>
 				</a>
-				<a data-num="3"  href="javascript:;">经典影片
-					<div :class="{sanjiao:inn==3}"></div>
+				<a data-num="3" :class="{a:inn == 3}" href="javascript:;">经典影片
+					<div :class="{sanjiao:inn == 3}"></div>
 				</a>
 			</div>
 		</div>
@@ -89,10 +89,16 @@
 			</div>
 		</div>
 		<!-- 单选框 -->
-		<div class="index_radio">
-			<span><input type="radio"  name="input" id="" value="" />按热门排序</span>
-			<span><input type="radio" name="input" id="" value=""/>按时间排序</span>
-			<span><input type="radio" name="input" id="" value=""/>按评价排序</span>
+		<div class="index_radio" @change="sorts($event)"> 
+		<label for="input">
+			<span ><input type="radio" id="input" name="input" checked   /> 按热门排序</span>
+			</label>
+<label for="input2">
+			<span ><input type="radio" name="input" id="input2" /> 按时间排序</span>
+			</label>
+<label for="input3">
+			<span ><input type="radio" name="input" id="input3" /> 按评价排序</span>
+</label>
 		</div>
 		<!-- 主体 -->
 		<div class="bodyer flex">
@@ -103,7 +109,7 @@
 		<div>
 			<span>{{p.move_name}}</span><span>{{p.move_momment}}</span>
 			<p>类型：{{p.move_type}}</p>
-			<p>主演</p>
+			<p>主演: {{p.move_music}}</p>
 			<p>上映时间：{{p.move_time}}</p>
 		</div>
 	</div>
@@ -144,10 +150,10 @@ ul,li{margin: 0 ;padding: 0;}
 	height:5rem;
 	display: flex;
 }
+.a{color: orange !important;}
 .sanjiao{
-	display: none;
 	margin: 0 auto;
-	margin-top:9px;
+	margin-top:15px;
 	width: 0;
 	border-left:10px solid transparent;
 	border-right:10px solid transparent;
@@ -212,7 +218,7 @@ cursor: pointer;
 .font_size:hover{color: orange; }
 .font_size:focus{color: #FFFFFF;background-color: orange  ; }
 .index_radio{width: 1200px;margin: 0 auto;margin-bottom: 20px;text-align: start;}
-.index_radio>span{margin: 0px 20px;}
+.index_radio span{margin: 0px 20px;}
 .header_ul{width: 50px;margin: 0;}
 .index li{list-style: none;display: flex;
 }
@@ -397,6 +403,7 @@ a{color: #000;}
 		left: -20px;	
 		z-index: 20;
 		display: none;
+		color: #000;
 		
 
 	}
@@ -462,6 +469,7 @@ export default{
 			pagecount:"",
 			like:'动画',
 			inn:1,
+	
         }
 	},
 
@@ -488,7 +496,34 @@ methods:{
 	},
 	ren(e){
 		this.inn=e.target.dataset.num
-	
+		if(this.inn == 3){
+			this.data.sort((a,b)=>{
+				return b.people - a.people
+			})
+
+			}else if(this.inn == 1){
+				this.fun()
+			}else if(this.inn == 2){
+				this.data.sort((a,b)=>{
+					return b.xiangkan - a.xiangkan
+				})
+			}
+		
+	},
+	sorts(e){
+		 let seet =	e.target
+		 if(seet.id == 'input'){
+			 this.fun()
+		 }else if(seet.id == 'input2'){
+			 this.data.sort((a,b)=>{
+				 return b.move_time.slice(0,4) - a.move_time.slice(0,4)
+			 })
+			 
+		 }else if(seet.id == 'input3'){
+			 this.data.sort((a,b)=>{
+				 return b.move_momment - a.move_momment
+			 })
+		 }
 		
 	},
 	type(e){

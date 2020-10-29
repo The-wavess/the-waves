@@ -166,7 +166,7 @@ const routes = [
 },
 //刘艳萍
 {
-  path: 'ms_Home',
+  path: '/ms_Home',
   name: 'ms_Home',
   component: ms_Home
 },
