@@ -7,8 +7,8 @@
       <div style="float: left">
         <!-- 我的美团 -->
         <div class="mymt">
-          <p><a href="/account">我的美团</a></p>
-          <p><a href="/orders">我的订单</a></p>
+          <p><router-link to="/account">我的美团</router-link></p>
+          <p><router-link to="/orders">我的订单</router-link></p>
           <ul>
             <li>
               <a href="#">全部订单</a>
@@ -31,7 +31,7 @@
               <c>></c>
             </li>
           </ul>
-          <p class="group"><a href="/collections">我的收藏</a></p>
+          <p class="group"><router-link to="/collections">我的收藏</router-link></p>
           <ul>
             <li>
               <a href="#">收藏的商家</a>
@@ -42,7 +42,7 @@
               <c>></c>
             </li>
           </ul>
-          <p class="group"><a href="/vouchers">抵用券</a></p>
+          <p class="group"><router-link to="/vouchers">抵用券</router-link></p>
           <ul>
             <li>
               <a href="#">可用劵</a>
@@ -53,7 +53,7 @@
               <c>></c>
             </li>
           </ul>
-          <p class="group"><a href="/setting">个人信息</a></p>
+          <p class="group"><router-link to="/setting">个人信息</router-link></p>
           <ul>
             <li>
               <a href="#">账户信息</a>
@@ -107,11 +107,10 @@
   padding-bottom: 20px;
 }
 .mymt > p {
-  font-size: 16px;
-  color: #222;
   margin: 15px 20px 0 30px;
 }
 .mymt p a {
+  font-size: 16px;
   color: #222;
 }
 .mymt > p > a:hover {

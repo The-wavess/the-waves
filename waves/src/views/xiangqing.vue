@@ -1,5 +1,6 @@
 <template>
   <div>
+    <my-header></my-header>
     <div class="container">
       <div class="card flex">
           <div class="pc-gallery">
@@ -93,7 +94,7 @@
           </div>
           <div class="item flexs">
             <div class="key">&nbsp;</div>
-            <button class="buy">¥83 限时抢购</button>
+            <button class="buy" @click="buys">¥83 限时抢购</button>
           </div>
           <div class="item flexs">
             <div class="key">服务承诺</div>
@@ -105,26 +106,27 @@
         </div>
       </div>
       <div style="position: relative">
-        <div class="nav-lp">
-          <div class="nav-lp_tab">
+        <div :class="{nav_lp:nav,Style:sty}">
+          <div :class="{nav_lp_tab:tab,is_fix:fix}">
             <ul class="clearfix">
-              <li class="is-active">
-                <a href="javascript:;" class="tab-description">适用门店</a>
+              <li :class="{is_active:act_1}" @click="cli_1">
+                <a href="#nav-lp_section_0" class="tab-description">适用门店</a>
               </li>
-              <li>
-                <a href="javascript:;" class="tab-description">团购详情</a>
+              <li :class="{is_active:act_2}" @click="cli_2">
+                <a href="#nav-lp_section_1" class="tab-description">团购详情</a>
               </li>
-              <li>
-                <a href="javascript:;" class="tab-description">购买须知</a>
+              <li :class="{is_active:act_3}" @click="cli_3">
+                <a href="#nav-lp_section_2" class="tab-description">购买须知</a>
               </li>
-              <li>
-                <a href="javascript:;" class="tab-description">用户评价</a>
+              <li :class="{is_active:act_4}" @click="cli_4">
+                <a href="#nav-lp_section_3" class="tab-description">用户评价</a>
               </li>
             </ul>
+            <span class="btn" v-if="qg">立即抢购</span>
           </div>
         </div>
         <div id="nav-lp_content">
-          <div id="nav-lp_section_0">
+          <div id="nav-lp_section_0" >
             <div class="shops-into">
               <div class="section-header">2家适用门店</div>
               <div class="shops">
@@ -457,7 +459,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="comment">
+                <div id="nav-lp_section_3" class="comment">
                   <div class="comment-title-bar">
                     <span class="comment-count">网友评论</span>
                     <div class="comment-sort">
@@ -600,9 +602,17 @@
         </div>
       </div>
     </div>
+    <my-footer0></my-footer0>
+    <my-footer1></my-footer1>
+    <my-footer2></my-footer2>
   </div>
 </template>
 <style scoped>
+.Style{
+ background-color: rgb(255, 255, 255) ;
+      box-shadow: rgb(204, 204, 204) 0px 6px 20px;
+      z-index: 99;
+}
 .pc-gallery .piv .zoom .album-ls .btn-pre{
     background: linear-gradient(90deg,#222 0,rgba(0,0,0,0) 100%);
     position: absolute;
@@ -1231,7 +1241,25 @@ button {
 .card .promises .promise:last-child {
   border-right: none;
 }
-.nav-lp {
+.nav_lp a, .nav_lp_tab .btn {
+    text-align: center;
+    font-size: 20px;
+}
+.nav_lp_tab .btn {
+    padding: 0 15px;
+    margin-top: 30px;
+    display: block;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 100px;
+    background: #F90;
+    color: #fff;
+    cursor: pointer;
+    -ms-transform: translateY(0);
+    transform: translateY(0);
+    transition: transform .6s ease;
+}
+.nav_lp {
   position: sticky;
   z-index: 99;
   top: -1px;
@@ -1241,11 +1269,22 @@ button {
   display: flex;
   transition: background 0.2s ease, width 0.2s ease, box-shadow 0.2s ease;
 }
-.nav-lp_tab {
+.nav_lp_tab {
   margin: 0 auto;
   width: 1190px;
 }
-.nav-lp_tab ul {
+.nav_lp_tab.is_fix {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.nav_lp_tab.is_fix ul {
+    width: 444px;
+}
+.nav_lp_tab ul {
   border-bottom: 2px solid #e5e5e5;
 }
 .clearfix {
@@ -1264,20 +1303,24 @@ ul {
   clear: both;
   visibility: hidden;
 }
-.nav-lp_tab ul li.is-active {
+.nav_lp_tab ul li.is_active {
   color: #31bbac;
-  /* border-bottom: 6px solid #31BBAC; */
+  border-bottom: 6px solid #31BBAC;
 }
-.nav-lp_tab ul li {
+.nav_lp_tab ul li.is_active a {
+    color: #31BBAC;
+}
+.nav_lp_tab ul li {
   float: left;
   padding: 26px 0 19px;
   margin-right: 21px;
   transition: color 0.3s ease, border-color 0.3s ease;
   border-color: #fff;
 }
-.nav-lp a {
+.nav_lp a {
   width: 0;
   color: #222;
+  font-size: 20px;
 }
 a,
 a:hover {
@@ -1426,7 +1469,22 @@ export default {
       lab_9: false,
       lab_10: false,
 	  pinglun: [],
-	  fd:false,
+    fd:false,
+    sty:false,
+    nav:true,
+    tab:true,
+    fix:false,
+    qg:false,
+    act_1:true,
+    act_2:false,
+    act_3:false,
+    act_4:false,
+    u_id:null,
+    title:'西安、太原通用优惠券【精品主题18选1】',
+    times:'',
+    num:1,
+    total_fee:83,
+    pic_path:'/KTV-img/12.jpg',
       sy:"background-image:url(/KTV-img/18.jpg);border:1px solid #fff",
       dy:"background-image:url(/KTV-img/18.jpg);border:1px solid #fff",
       de:"background-image:url(/KTV-img/8.jpg);border:1px solid #fff",
@@ -1435,6 +1493,37 @@ export default {
     }
   },
   methods: {
+    buys(){
+      this.times = new Date().toLocaleString();
+      this.axios.post('/goumai',`u_id=${this.u_id}&u_title=${this.title}&times=${this.times}&num=${this.num}&total_fee=${this.total_fee}&pic_path=${this.pic_path}`).then(res=>{
+        console.log(res.data);
+         this.$router.push('/orders')
+      })
+    },
+    cli_1(){
+      this.act_1 = true;
+      this.act_2=false;
+      this.act_3=false;
+      this.act_4=false;
+    },
+     cli_2(){
+      this.act_1 = false;
+      this.act_2=true;
+      this.act_3=false;
+      this.act_4=false;
+    },
+     cli_3(){
+      this.act_1 =false;
+      this.act_2=false;
+      this.act_3=true;
+      this.act_4=false;
+    },
+     cli_4(){
+      this.act_1 =false;
+      this.act_2=false;
+      this.act_3=false;
+      this.act_4=true;
+    },
 	   foz(){
       this.sy = this.fo
     },
@@ -1573,13 +1662,50 @@ export default {
       this.lab_9 = false;
       this.lab_10 = true;
     },
-  },
+  
+  handleScroll() {
+  var top = Math.floor(document.body.scrollTop || document.documentElement.scrollTop || window.pageYOffset)
+  if(top>=3600){
+      this.act_1 =false;
+      this.act_2=false;
+      this.act_3=false;
+      this.act_4=true;
+  }
+  if(top>=2400 &&top<3600){
+      this.act_1 =false;
+      this.act_2=false;
+      this.act_3=true;
+      this.act_4=false;
+  }
+  if(top>=800 &&top<2300){
+      this.act_1 = false;
+      this.act_2=true;
+      this.act_3=false;
+      this.act_4=false;
+  }
+  if(top<800){
+     this.act_1 = true;
+      this.act_2=false;
+      this.act_3=false;
+      this.act_4=false;
+  }
+  if(top>=600){
+    this.sty = true;
+    this.qg = true;
+    this.fix= true;
+  }else{
+    this.sty = false;
+    this.qg = false;
+    this.fix = false;
+  }
+  
+  }
+  },  
   mounted() {
     this.axios.get("/pinglun").then((result) => {
       this.pinglun = result.data;
-      console.log(this.pinglun);
-	});
-	
+  });
+  window.addEventListener('scroll', this.handleScroll, true)
   },
 };
 </script>

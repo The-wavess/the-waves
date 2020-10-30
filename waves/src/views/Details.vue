@@ -1,14 +1,18 @@
 <template>
+<div id="appp">
+
+<my-header></my-header>
 	<!-- 大框 -->
 	<main id="poidetail">
 		<div id="bg" v-if="hiddenhidden"></div>
 		<div class="cont" v-if="showshow">
+			
 			<!-- 好好学习 天天向上 -->
-			<!-- <ul> -->
+			
 				<span class="line_1_title">使用规则</span>
-				<li style="font-size: 12px;color: #666;margin: 0 0 0 21px;">· 直接消费，无需美团券，携带所有入住人的有效身份证办理入住，入住必须按照一人一证</li>
-				<li style="font-size: 12px;color: #666;margin: 0 0 0 21px;">· 请在12:00之后入住并于次日13:00之前退房；如需提前入住或延时退房，请咨询商家</li>
-			<!-- </ul> -->
+				<li class="text_li">· 直接消费，无需美团券，携带所有入住人的有效身份证办理入住，入住必须按照一人一证</li>
+				<li class="text_li">· 请在12:00之后入住并于次日13:00之前退房；如需提前入住或延时退房，请咨询商家</li>
+			
 			<a id="close" @click="ishidden" href="javascript:;">×</a>
 		</div>
 		<!-- 大框 -->
@@ -52,7 +56,19 @@
 									<div class="pc_album_fullScreen">
 										<i class="close_icon"></i>
 										<div class="main_img">
-											<img src="/jd_img/qt.jpg" class="big_img">
+
+											<!-- 大图 -->
+											<img src="/jd_img/qt_b.jpg" class="big_img" @mouseover="showfangdajing" @mouseout="hiddenfangdajing">
+											<!-- 放大镜 -->
+											<img src="/jd_img/fangdajing.png" alt="" @mouseover="showimg"  class="fangdajing"  v-show="fangdajing">
+
+
+
+											<!-- <div id="bg" v-show="hiddenhidden"></div> -->
+											<div v-show="showshowimg" class="showshowimg">
+												<img src="/jd_img/bigbigimg.jpg" alt="" class="bigbigimg">
+												<span><img src="/jd_img/chacha.png" alt="" class="chacha" @click="closeimg"></span>
+											</div>
 											<div class="arrow_left"></div>
 											<div class="arrow_right"></div>
 											<div class="main_bottom">
@@ -70,23 +86,41 @@
 										<!-- 大图下边七张小图 -->
 										<div class="pc_album_tabs">
 											<div class="fullScreen_box">
-												<div class="pc-album-flipsnap">
-													<div class="album_common_image_1"></div>
-													<div class="album_common_image_2" style="background-image: url(/jd_img/7_2.jpg);"></div>
-													<div class="album_common_image_2" style="background-image: url(/jd_img/7_3.jpg);"></div>
-													<div class="album_common_image_2" style="background-image: url(/jd_img/7_4.jpg);"></div>
-													<div class="album_common_image_2" style="background-image: url(/jd_img/7_5.jpg);"></div>
-													<div class="album_common_image_2" style="background-image: url(/jd_img/7_6.jpg);"></div>
-													<div class="album_common_image_2" style="background-image: url(/jd_img/7_7.jpg);"></div>
-													<div class="album_common_image_2" style="background-image: url(/jd_img/7_8.jpg);"></div>
-													<div class="album_common_image_2" style="background-image: url(/jd_img/7_9.jpg);"></div>
-													<div class="album_common_image_2" style="background-image: url(/jd_img/7_10.jpg);"></div>
+												<div class="pc-album-flipsnap" :style="{'margin-left':-752*times+'px','width':3159+'px'}">
+													<!-- <div class="album_common_image_1"></div> -->
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_1.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_2.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_3.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_4.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_5.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_6.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_7.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_5.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_3.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_1.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_2.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_3.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_4.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_5.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_6.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_7.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_5.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_1.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_1.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_2.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_3.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_4.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_5.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_6.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_7.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_2.jpg);" ></div>
+													<div class="album_common_image_2" style="background-image: url(/jd_img/qt_s_3.jpg);" ></div>
 												</div>
 											</div>
-											<div class="album_cursor_left">
+											<div class="album_cursor_left" @click="xyhd">
 
 											</div>
-											<div class="album_cursor_right">
+											<div class="album_cursor_right" @click="xzhd">
 
 											</div>
 										</div>
@@ -133,7 +167,7 @@
 											</div>
 											<div class="service_text">{{b.b_service_4}}</div>
 										</li>
-										<!-- <li class="service_icon">
+										<li class="service_icon">
 												<div class="icon_img">
 													<img src="jd_img/餐厅.png">
 												</div>
@@ -162,12 +196,12 @@
 													<img src="jd_img/洗浴.png">
 												</div>
 												<div class="service_text">热水洗浴</div>
-											</li> -->
+											</li>
 									</ul>
 								</li>
 								<!-- 小地图 -->
 								<li class="other_detail_line3">
-									<!-- <map_s class="map_s"></map_s> -->
+									<img src="/jd_img/map_s.png" alt=""><!-- <map_s class="map_s"></map_s> -->
 								</li>
 							</ul>
 						</div>
@@ -186,29 +220,39 @@
 						<div class="select_group">
 							<!-- 第二框 入住日期-->
 							<div class="second_select">
-								<div class="time_item">
-									<span class="time_1">入住</span>
-									<input type="text" class="input1">
-									<!--<el-date-picker
+									<!-- <div class="time_item"> -->
+										<!-- <span class="time_1">入住</span> -->
+										<!-- <input type="text" class="input1"> -->
+
+
+										<el-date-picker
 										v-model="value1"
 										type="date"
-										placeholder="选择日期">
-									</el-date-picker>-->
-									<span class="icon"></span>
-									<span class="weekinfo">今天</span>
+										placeholder="选择入住日期">
+										</el-date-picker>
+										
+										
+										<!-- <span class="icon"></span> -->
+										<!-- <span class="weekinfo">今天</span> -->
+									<!-- </div> -->
 								</div>
-							</div>
 							<!-- 中间减号 -->
 							<span class="connect_line">-</span>
 							<!-- 第三框 离店日期-->
 							<div class="third_select">
-								<div class="time_item">
-									<span class="time_1">离店</span>
-									<input type="text" class="input1">
-									<span class="icon"></span>
-									<span class="weekinfo">星期五</span>
+									<!-- <div class="time_item"> -->
+										<!-- <span class="time_1">离店</span> -->
+										<!-- <input type="text" class="input1"> -->
+
+										<el-date-picker
+										v-model="value2"
+										type="date"
+										placeholder="选择离店日期">
+										</el-date-picker>
+										<!-- <span class="icon"></span> -->
+										<!-- <span class="weekinfo">星期五</span> -->
+									<!-- </div> -->
 								</div>
-							</div>
 							<!-- 共一晚 -->
 							<span class="one_night">共1晚</span>
 							<!-- 搜索按钮 -->
@@ -222,11 +266,11 @@
 							<div class="first_line">
 								<!-- 左边图片 -->
 								<div class="img_1">
-									<img src="/jd_img/qt_s2.jpg" alt="" class="bed_img">
+									<img src="/jd_img/qt_s1.jpg" alt="" class="bed_img">
 								</div>
 								<!-- 中间 -->
 								<div class="type_2">
-									<div><span class="title">自主大床房</span></div>
+									<div><span class="title">奇妙城景房双床间</span></div>
 									<div class="facility">
 										<span>上网 wifi</span>
 										<span>|</span>
@@ -236,7 +280,7 @@
 										<span>|</span>
 										<span>可住 2人</span>
 										<span>|</span>
-										<span>面积 10-20</span>
+										<span>面积 40-50</span>
 									</div>
 									<div>
 										<span> </span>
@@ -244,38 +288,15 @@
 								</div>
 								<!-- 右上角 -->
 								<div class="right_3">
-									<a href="">共4个产品</a>
-									<span></span>
+									<a href="javascript:;" class="product_count" @click="showRoom1">共4个产品</a>
+									<span><img src="/jd_img/sanjiao.png" alt="" @click="showbed1"></span>
 								</div>
 							</div>
 							<!-- 具体各种房型 -->
 							<div class="">
-								<div class="room_type_detail">
+								<div class="room_type_detail" v-show="isshowroom1">
 									<table border="0">
-										<tr class="tr_line">
-											<td class="first_row" width="265px">特惠价[普卡价]</td>
-											<td class="second_row_ch" width="118px">有窗户</td>
-											<td class="third_row_zc" width="118px">无早餐</td>
-											<td width="150px"><span id="cancel">
-													不可取消
-													<div class="hidden_text">
-														入住日当天18点前可免费取消，当前已过最晚可取消时间（10月21日18点），订单确认后不可取消/变更，如未入住，酒店将扣除全额房费
-													</div>
-												</span></td>
-											<td class="use_rules" width="150px" @click="isshow">使用规则</td>
-											
-											<td>
-												<!-- 微信小程序预定 -->
-												<div class="colum_3">
-													<div class="dl_redirect">
-														<a href="#" class="show_detail">微信小程序预定</a>
-														<div class="popper">
-															<img src="https://p0.meituan.net/travelcube/ce83f11af2812946a1bf8d3c995ddc7094277.jpg" alt="" class="mp_code">
-														</div>
-													</div>
-												</div>
-											</td>
-										</tr>
+										
 										<tr class="tr_line">
 											<td class="first_row" width="265px">特惠价[贴心早餐-双早]</td>
 											<td class="second_row_ch" width="118px">有窗户</td>
@@ -286,7 +307,7 @@
 														入住日当天18点前可免费取消，当前已过最晚可取消时间（10月21日18点），订单确认后不可取消/变更，如未入住，酒店将扣除全额房费
 													</div>
 												</span></td>
-											<td class="use_rules" width="150px">使用规则</td>
+											<td class="use_rules" width="150px" @click="showrules">使用规则</td>
 											<td>
 												<!-- 微信小程序预定 -->
 												<div class="colum_3">
@@ -311,7 +332,7 @@
 														入住日当天18点前可免费取消，当前已过最晚可取消时间（10月21日18点），订单确认后不可取消/变更，如未入住，酒店将扣除全额房费
 													</div>
 												</span></td>
-											<td class="use_rules" width="150px">使用规则</td>
+											<td class="use_rules" width="150px" @click="showrules">使用规则</td>
 											<td>
 												<!-- 微信小程序预定 -->
 												<div class="colum_3">
@@ -325,7 +346,7 @@
 											</td>
 										</tr>
 										<tr class="tr_line">
-											<td class="first_row" width="265px">标准价</td>
+											<td class="first_row" width="265px">特惠价[新店赠饮+延迟退房]</td>
 											<td class="second_row_ch" width="118px">有窗户</td>
 											<td class="third_row_zc" width="118px">无早餐</td>
 											<td width="150px"><span id="cancel">
@@ -334,7 +355,7 @@
 														入住日当天18点前可免费取消，当前已过最晚可取消时间（10月21日18点），订单确认后不可取消/变更，如未入住，酒店将扣除全额房费
 													</div>
 												</span></td>
-											<td class="use_rules" width="150px">使用规则</td>
+											<td class="use_rules" width="150px" @click="showrules">使用规则</td>
 											<td>
 												<!-- 微信小程序预定 -->
 												<div class="colum_3">
@@ -357,7 +378,7 @@
 														入住日当天18点前可免费取消，当前已过最晚可取消时间（10月21日18点），订单确认后不可取消/变更，如未入住，酒店将扣除全额房费
 													</div>
 												</span></td>
-											<td class="use_rules" width="150px">使用规则</td>
+											<td class="use_rules" width="150px" @click="showrules">使用规则</td>
 											<td>
 												<!-- 微信小程序预定 -->
 												<div class="colum_3">
@@ -383,7 +404,7 @@
 								</div>
 								<!-- 中间 -->
 								<div class="type_2">
-									<div><span class="title">自主双床房</span></div>
+									<div><span class="title">尊享舒适榻榻米双床房</span></div>
 									<div class="facility">
 										<span>上网 wifi</span>
 										<span>|</span>
@@ -401,22 +422,22 @@
 								</div>
 								<!-- 右上角 -->
 								<div class="right_3">
-									<a href="">共4个产品</a>
-									<span></span>
+									<a href="javascript:;" class="product_count" @click="showRoom2">共5个产品</a>
+									<span><img src="/jd_img/sanjiao.png" alt="" @click="showbed2"></span>
 								</div>
 							</div>
 							<!-- 具体各种房型 -->
 							<div class="">
-								<div class="room_type_detail">
+								<div class="room_type_detail"  v-show="isshowroom2">
 									<table border="0">
 										<tr class="tr_line">
 											<td class="first_row" width="265px">特惠价[普卡价]</td>
 											<td class="second_row_ch" width="118px">有窗户</td>
-											<td class="third_row_zc" width="118px">无早餐</td>
+											<td class="third_row_zc" width="118px">有早餐</td>
 											<td width="150px"><span id="cancel">
 													不可取消
 												</span></td>
-											<td class="use_rules" width="150px">使用规则</td>
+											<td class="use_rules" width="150px" @click="showrules">使用规则</td>
 											<td>
 												<!-- 微信小程序预定 -->
 												<div class="colum_3">
@@ -439,7 +460,7 @@
 														入住日当天18点前可免费取消，当前已过最晚可取消时间（10月21日18点），订单确认后不可取消/变更，如未入住，酒店将扣除全额房费
 													</div>
 												</span></td>
-											<td class="use_rules" width="150px">使用规则</td>
+											<td class="use_rules" width="150px" @click="showrules">使用规则</td>
 											<td>
 												<!-- 微信小程序预定 -->
 												<div class="colum_3">
@@ -453,16 +474,16 @@
 											</td>
 										</tr>
 										<tr class="tr_line">
-											<td class="first_row" width="265px">标准价[金秋狂欢]</td>
+											<td class="first_row" width="265px">特惠价[房间全面消毒&体温监测]</td>
 											<td class="second_row_ch" width="118px">有窗户</td>
-											<td class="third_row_zc" width="118px">无早餐</td>
+											<td class="third_row_zc" width="118px">有早餐</td>
 											<td width="150px"><span id="cancel">
-													不可取消
+													免费取消
 													<div class="hidden_text">
 														入住日当天18点前可免费取消，当前已过最晚可取消时间（10月21日18点），订单确认后不可取消/变更，如未入住，酒店将扣除全额房费
 													</div>
 												</span></td>
-											<td class="use_rules" width="150px">使用规则</td>
+											<td class="use_rules" width="150px" @click="showrules">使用规则</td>
 											<td>
 												<!-- 微信小程序预定 -->
 												<div class="colum_3">
@@ -480,12 +501,12 @@
 											<td class="second_row_ch" width="118px">有窗户</td>
 											<td class="third_row_zc" width="118px">无早餐</td>
 											<td width="150px"><span id="cancel">
-													不可取消
+													限时取消
 													<div class="hidden_text">
 														入住日当天18点前可免费取消，当前已过最晚可取消时间（10月21日18点），订单确认后不可取消/变更，如未入住，酒店将扣除全额房费
 													</div>
 												</span></td>
-											<td class="use_rules" width="150px">使用规则</td>
+											<td class="use_rules" width="150px" @click="showrules">使用规则</td>
 											<td>
 												<!-- 微信小程序预定 -->
 												<div class="colum_3">
@@ -508,7 +529,7 @@
 														入住日当天18点前可免费取消，当前已过最晚可取消时间（10月21日18点），订单确认后不可取消/变更，如未入住，酒店将扣除全额房费
 													</div>
 												</span></td>
-											<td class="use_rules" width="150px">使用规则</td>
+											<td class="use_rules" width="150px" @click="showrules">使用规则</td>
 											<td>
 												<!-- 微信小程序预定 -->
 												<div class="colum_3">
@@ -530,11 +551,11 @@
 							<div class="first_line">
 								<!-- 左边图片 -->
 								<div class="img_1">
-									<img src="/jd_img/qt_s2.jpg" alt="" class="bed_img">
+									<img src="/jd_img/qt_s3.jpg" alt="" class="bed_img">
 								</div>
 								<!-- 中间 -->
 								<div class="type_2">
-									<div><span class="title">自主双床房</span></div>
+									<div><span class="title">奢享舒适标准间</span></div>
 									<div class="facility">
 										<span>上网 wifi</span>
 										<span>|</span>
@@ -552,13 +573,13 @@
 								</div>
 								<!-- 右上角 -->
 								<div class="right_3">
-									<a href="">共4个产品</a>
-									<span></span>
+									<a href="javascript:;" class="product_count" @click="showRoom3">共4个产品</a>
+									<span><img src="/jd_img/sanjiao.png" alt="" @click="showbed3"></span>
 								</div>
 							</div>
 							<!-- 具体各种房型 -->
 							<div>
-								<div class="room_type_detail">
+								<div class="room_type_detail" v-show="isshowroom3">
 									<table border="0">
 										<tr class="tr_line">
 											<td class="first_row" width="265px">特惠价[普卡价]</td>
@@ -570,7 +591,7 @@
 														入住日当天18点前可免费取消，当前已过最晚可取消时间（10月21日18点），订单确认后不可取消/变更，如未入住，酒店将扣除全额房费
 													</div>
 												</span></td>
-											<td class="use_rules" width="150px">使用规则</td>
+											<td class="use_rules" width="150px" @click="showrules">使用规则</td>
 											<td>
 												<!-- 微信小程序预定 -->
 												<div class="colum_3">
@@ -593,7 +614,7 @@
 														入住日当天18点前可免费取消，当前已过最晚可取消时间（10月21日18点），订单确认后不可取消/变更，如未入住，酒店将扣除全额房费
 													</div>
 												</span></td>
-											<td class="use_rules" width="150px">使用规则</td>
+											<td class="use_rules" width="150px" @click="showrules">使用规则</td>
 											<td>
 												<!-- 微信小程序预定 -->
 												<div class="colum_3">
@@ -616,7 +637,7 @@
 														入住日当天18点前可免费取消，当前已过最晚可取消时间（10月21日18点），订单确认后不可取消/变更，如未入住，酒店将扣除全额房费
 													</div>
 												</span></td>
-											<td class="use_rules" width="150px">使用规则</td>
+											<td class="use_rules" width="150px" @click="showrules">使用规则</td>
 											<td>
 												<!-- 微信小程序预定 -->
 												<div class="colum_3">
@@ -639,7 +660,7 @@
 														入住日当天18点前可免费取消，当前已过最晚可取消时间（10月21日18点），订单确认后不可取消/变更，如未入住，酒店将扣除全额房费
 													</div>
 												</span></td>
-											<td class="use_rules" width="150px">使用规则</td>
+											<td class="use_rules" width="150px" @click="showrules">使用规则</td>
 											<td>
 												<!-- 微信小程序预定 -->
 												<div class="colum_3">
@@ -673,13 +694,13 @@
 							<div class="near_place clear">
 								<div class="p20">
 									<ul class="ul1 clear">
-										<li class="place_btn current">机场/车站</li>
-										<li class="place_btn">购物</li>
-										<li class="place_btn">景点</li>
-										<li class="place_btn">餐厅</li>
-										<li class="place_btn tail">娱乐</li>
+										<li class="place_btn current" @click="showlist1">机场/车站</li>
+										<li class="place_btn" @click="showlist2">购物</li>
+										<li class="place_btn" @click="showlist3">景点</li>
+										<li class="place_btn" @click="showlist4">餐厅</li>
+										<li class="place_btn tail" @click="showlist5">娱乐</li>
 									</ul>
-									<ul class="around_detail">
+									<ul class="around_detail" v-show="list1">
 										<li class="place_line_item">
 											<span class="around-icon-station"></span>
 											<div class="ml25">
@@ -771,12 +792,261 @@
 											</div>
 										</li>
 									</ul>
+
+									<ul class="around_detail" v-show="list2">
+										<li class="place_line_item">
+											<span class="around-icon-gouwu"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">大唐不夜城商业步行街</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">1.2km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-gouwu"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">曲江海港城</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">1.4km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-gouwu"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">赛格国际购物中心</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">1.6km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-gouwu"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">银泰城（小寨店）</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">1.8km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-gouwu"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">MOMOPARK购物中心</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">2.0km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-gouwu"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">千玺港·众汇食代广场</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">1.9km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-gouwu"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">芙蓉新天地广场</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">2.5km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-gouwu"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">金鹰购物中心</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">2.5km</span>
+												</p>
+											</div>
+										</li>
+									</ul>
+
+									<ul class="around_detail" v-show="list3">
+										<li class="place_line_item">
+											<span class="around-icon-jingdian"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">大唐芙蓉园</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">2.2km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-jingdian"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">大唐不夜城</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">1.7km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-jingdian"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">西安城墙</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">4.7km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-jingdian"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">西安曲江海洋极地公园</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">3.2km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-jingdian"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">陕西历史博物馆</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">1.9km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-jingdian"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">大慈恩寺（大雁塔）</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">1.9km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-jingdian"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">西安博物院（小雁塔）</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">3.3km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-jingdian"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">西安碑林博物馆</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">4.9km</span>
+												</p>
+											</div>
+										</li>
+									</ul>
+
+									<ul class="around_detail" v-show="list4">
+										<li class="place_line_item">
+											<span class="around-icon-canting"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">鼎记酒楼</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">373m</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-canting"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">千岛咖啡</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">249km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-canting"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">忆口福荆州锅盔</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">346m</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-canting"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">温情私厨酒馆</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">110m</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-canting"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">nikoniko coffee</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">93km</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-canting"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">食肉一族硬啃自助酱骨火锅</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">368m</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-canting"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">客串吧成都小盘菜火锅·铁锅焖面（师大店）</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">195m</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-canting"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">成记港式烧腊</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">355m</span>
+												</p>
+											</div>
+										</li>
+									</ul>
+
+									<ul class="around_detail" v-show="list5">
+										<li class="place_line_item">
+											<span class="around-icon-canting"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">汤姆熊电玩城</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">793m</span>
+												</p>
+											</div>
+										</li>
+										<li class="place_line_item">
+											<span class="around-icon-canting"></span>
+											<div class="ml25">
+												<p class="fs14_fc3">快乐轰趴馆</p>
+												<p class="fs12_mt5">距离约
+													<span class="number_color">2.9km</span>
+												</p>
+											</div>
+										</li>
+										
+										
+										
+									</ul>
+
 								</div>
-								<!-- <span>:after</span> -->
 							</div>
 						</div>
 						<!-- 酒店信息 -->
-						<h2 class="info" id="info1">酒店信息</h2>
+						<span class="jdxx" id="info1">酒店信息</span>
 						<div class="hotel_info clear_fix_info">
 							<div class="hotel_info_details clear_fix_info">
 								<div class="details_clear">
@@ -823,6 +1093,8 @@
 		</div>
 		<!-- </div> -->
 	</main>
+	<my-footer1></my-footer1>
+	</div>
 </template>
 <style scoped>
 	/* 导航栏 */
@@ -1001,7 +1273,14 @@
 	.big_img {
 		width: 752px;
 		height: 270px;
+		border-radius: 4px;
+		z-index: 997;
+		/* background-size: cover; */
+		position: absolute;
 	}
+	.big_img:hover{cursor: pointer;}
+	
+	
 
 	.arrow_left {
 		display: none;
@@ -1022,6 +1301,7 @@
 		font-weight: lighter;
 		border-bottom-left-radius: 4px;
 		border-bottom-right-radius: 4px;
+		z-index: 1000;
 	}
 
 	.main_bottom>section {
@@ -1067,8 +1347,8 @@
 		white-space: nowrap;
 	}
 
-	.album_common_image_1 {
-		background-image: url(../../public/jd_img/7_2.jpg);
+	/* .album_common_image_1 {
+		background-image: url(../../public/jd_img/qt_s_7.jpg);
 		margin-left: 0;
 		border: 2px solid #ffc300;
 		border-radius: 4px;
@@ -1081,7 +1361,7 @@
 		background-color: rgba(0, 0, 0, .05);
 		background-position: 50% 50%;
 		white-space: nowrap;
-	}
+	} */
 
 	.album_common_image_2 {
 		display: inline-block;
@@ -1094,6 +1374,13 @@
 		background-size: 150% 150%;
 		background-color: rgba(0 0 0 .05);
 		background-position: 50% 50%;
+	}
+
+	.album_common_image_2:hover{
+		width: 113px;
+		height: 96px;
+		border: 1px solid #ffc300;
+		border-radius: 4px;
 	}
 
 	.album_cursor_left {
@@ -1137,6 +1424,19 @@
 		width: 40px;
 		line-height: 100px;
 		white-space: nowrap;
+	}
+	.album_cursor_right::before {
+		left: 14px;
+		transform: translateY(-50%) rotate(225deg);
+		content: " ";
+		display: block;
+		position: absolute;
+		top: 50%;
+		width: 10px;
+		height: 10px;
+		border: none;
+		border-bottom: 2px solid #fff;
+		border-left: 2px solid #fff;
 	}
 
 	/* 右 */
@@ -1436,6 +1736,7 @@
 	.one_night {
 		font-size: 12px;
 		color: #999;
+		padding-left: 15px;
 	}
 
 	.search_button {
@@ -1488,6 +1789,8 @@
 
 	.bed_img {
 		border-radius: 4px;
+		width: 128px;
+		height: 80px;
 	}
 
 	.type_2 {
@@ -1517,6 +1820,7 @@
 		color: #fe8c00;
 		font-size: 10px;
 	}
+	.product_count{color: #fe8c00 ;}
 
 	/* .4p{text-decoration: none;} */
 	.colum_3 {
@@ -1579,6 +1883,7 @@
 		border-style: none;
 		text-align: center;
 		color: #666666;
+		float: inherit;
 	}
 
 	.popper {
@@ -1671,14 +1976,18 @@
 		background: #fff;
 		float: left;
 		display: block;
+		z-index: 999;
+		margin-bottom: 10px;
 	}
 
 	.big_map {
+		position: relative;
 		float: left;
 		width: 775px;
 		height: 415px;
 		display: block;
 		border: 1px solid #e5e5e5;
+		
 	}
 
 	.near_place {
@@ -1699,6 +2008,8 @@
 		float: left;
 		display: block;
 	}
+	.ul1>li:hover{color: #ffc300;
+		border-bottom: 2px solid #ffc300;}
 
 	.clear:after {
 		clear: both;
@@ -1710,10 +2021,10 @@
 		position: fixed;
 	}
 
-	.current {
+	/* .current {
 		color: #ffc300;
 		border-bottom: 2px solid #ffc300;
-	}
+	} */
 
 	.place_btn {
 		float: left;
@@ -1747,6 +2058,27 @@
 		background-size: 100% 100%;
 		float: left;
 	}
+	.around_icon_gouwu {
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUBAMAAAB/pwA+AAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAACdQTFRFAAAA/8MAFufQHOPG+cMEH9+/xcUtH9+/////I9ra+MIF3sYa9cIHIDEuhgAAAA10Uk5TAP8LCdoIORABB9tjsbtZ5w0AAABJSURBVHicY2DABQSBAMZkYFA0ADFYBMFAFMhkhDBBShgFgCRjAjZmoQCc2TgBwoSZiIsptQoEBNGskN4NAkiiwjA3CgoewOEDAMfWDo6evopxAAAAAElFTkSuQmCC);
+		width: 20px;
+		height: 20px;
+		background-size: 100% 100%;
+		float: left;
+	}
+	.around_icon_jingdian {
+		background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUBAMAAAB/pwA+AAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAACdQTFRFAAAA/8MAGubM4sQX////7cQNM//MF+jRgP//JNvbK9XVVf//vMg3U1rkowAAAA10Uk5TAP8KVwF0BQsCBwYDKnakFasAAABfSURBVHicY2AgCggKCkBZjIKCggpQMQMGR7Awq6AgAwObIFQaJAWWTxAUYBQAMYFSjAKFYBlGAQYOQYhpggFALNAoAFXPOIERRImtAgNpIPOgIBgIQCyDsSBMQSIcDQAIOwtdYW26xwAAAABJRU5ErkJggg==);
+		width: 20px;
+		height: 20px;
+		background-size: 100% 100%;
+		float: left;
+	}
+	.around_icon_canting {
+		background-image: url(/jd_img/canting.png);
+		width: 20px;
+		height: 20px;
+		background-size: 100% 100%;
+		float: left;
+	}
 
 	.ml25 {
 		margin-left: 25px;
@@ -1766,20 +2098,26 @@
 		color: #f90;
 	}
 
-	.info {
+	/* .info {
 		position: relative;
 		font-size: 20px;
 		padding-bottom: 10px;
 		color: #333;
 		line-height: 2;
 		margin-top: 20px;
-	}
+	} */
+	.jdxx{font-size: 20px;
+		padding-bottom: 10px;
+		color: #333;
+		margin-bottom: 20px;
+		font-weight: 700;}
 
 	.hotel_info {
+		margin-top: 20px;
 		background: #fff;
 		border: 1px solid #e5e5e5;
 		border-radius: 4px;
-		height: 404;
+		height: 404px;
 	}
 
 	.hotel_info_details {
@@ -1824,7 +2162,7 @@
 	.look{
 		color: #ffc300;;
 	}
-
+	.fangdajing{z-index:999;position: absolute;margin-left: 320px;margin-top: 100px;}
 
 
 
@@ -1846,31 +2184,64 @@
 
 			.cont {
 				/* position: absolute; */
-				position: fixed;
-				top: 58%;
-				left: 48%;
+				position:fixed;
+				top: 50%;
+				left: 50%;
 				z-index: 1001;
 				width: 560px;
 				height: 200px;
-				text-align: center;
 				background-color: #f8f8f8;
 				border: #e5e5e5;
-				border-radius: 4px;
+				border-radius: 10px;
 				margin: -98px 0 0 -280px;
+				box-shadow: 0 10px 67px 0 rgba(0, 0, 0, .05);
 			}
-
-			.close {
+			.cont:after {
+				/* content: "\D7"; */
 				position: absolute;
-				right: -100px;
-				top: 0px;
-				cursor: pointer;
-
+				right: 15px;
+				top: 10px;
+				font-size: 26px;
+				font-weight:lighter ;
 			}
 
-		.line_1_title{font-size: 16px;color: #333;margin: 40px 0 0 31px;padding: 0 0 5px;}
+			#close {
+				position: absolute;
+				right: 20px;
+				top: 22px;
+				cursor: pointer;
+				width: 15.19px;
+				height: 31px;
+			}
+
+		.line_1_title{display:inline-block;font-weight: 700;font-size: 16px;color: #333;line-height: 26px;margin-top: 40px;margin-left: 31px;padding-bottom: 5px;}
 		.count ul{list-style: none;vertical-align: middle;}
 		/* .count ul li{font-size: 12px;color: #666;margin: 0 0 0 21px;} */
 			
+
+
+
+			.showshowimg{
+				
+				z-index: 1005;
+				position: relative;
+			} 
+			.bigbigimg{position: absolute;border-radius: 4px;transition: background-image .2s;background-size: cover;background-color: hsla(0,0%,100%,.9);background-position: 50% 50%;}
+			.chacha{position: absolute;margin-left: 680px;}
+			
+				
+			.text_li{display: block;font-size: 12px;color: #666;line-height: 27px;margin-left: 21px;}
+</style>
+<style>
+ .second_select .el-input__inner{
+	 height: 35px;
+ }
+ .third_select .el-input__inner{
+	 height: 35px;
+ }
+
+ #appp .t2{display: none;}
+ #app .myheader{width: 100%;min-width: 1190px;}
 </style>
 <script>
 	export default {
@@ -1879,13 +2250,24 @@
 				b: [],
 				showshow: false,
 				hiddenhidden: false,
-
+				isshowroom1:true,
+				isshowroom2:true,
+				isshowroom3:true,
+				showshowimg:false,
+				fangdajing:false,
+				list1:true,
+				list2:false,
+				list3:false,
+				list4:false,
+				list5:false,
+				times:0,
+				
 
 				pickerOptions: {
           			disabledDate(time) {
             		return time.getTime() > Date.now();
 				    },
-				},value1: '',
+				},value1: '',value2: '',
 			}
 		},
 		mounted() {
@@ -1898,17 +2280,121 @@
 			})
 		},
 		methods: {
-			showtext() {
-				alert('333')
-			},
 			isshow() {
 				this.showshow = true;
 				this.hiddenhidden=true;
 				},
+			showRoom(){
+				this.isshowroom=false;
+			},
+
+
+
+			//点击使用规则弹出遮罩层及上方文本内容
+			showrules(){
+				this.showshow = true;
+				this.hiddenhidden=true;
+			},
 			ishidden() {
 				this.showshow = false;
 				this.hiddenhidden=false;
+			},
+
+
+
+			//大图片放大，关闭
+			showimg(){
+				this.hiddenhidden=true;
+				this.showshowimg=true;
+			},
+			closeimg(){
+				this.hiddenhidden=false;
+				this.showshowimg=false;
+			},
+			
+
+
+			//房型的显示隐藏
+			showRoom1(){
+				this.isshowroom1=false;
+			},
+			showbed1(){
+				this.isshowroom1=true;
+			},
+			showRoom2(){
+				this.isshowroom2=false;
+			},
+			showbed2(){
+				this.isshowroom2=true;
+			},
+			showRoom3(){
+				this.isshowroom3=false;
+			},
+			showbed3(){
+				this.isshowroom3=true;
+			},
+			
+
+
+		// 放大镜的显示隐藏
+			showfangdajing(){
+				this.fangdajing=true;
+			},
+			hiddenfangdajing(){
+				this.fangdajing=false;
+			},
+
+
+
+			//地图旁边滚动条
+			showlist1(){
+				this.list1=true;
+				this.list2=false;
+				this.list3=false;
+				this.list4=false;
+				this.list5=false;
+
+			},
+			showlist2(){
+				this.list1=false;
+				this.list2=true;
+				this.list3=false;
+				this.list4=false;
+				this.list5=false;
+			},
+			showlist3(){
+				this.list1=false;
+				this.list2=false;
+				this.list3=true;
+				this.list4=false;
+				this.list5=false;
+
+			},
+			showlist4(){
+				this.list1=false;
+				this.list2=false;
+				this.list3=false;
+				this.list4=true;
+				this.list5=false;
+			},
+			showlist5(){
+				this.list1=false;
+				this.list2=false;
+				this.list3=false;
+				this.list4=false;
+				this.list5=true;
+
+			},
+			
+			xzhd(){
+				this.times++;
+				
+			},
+			xyhd(){
+				this.times--;
+				
 			}
+
 		}
 	}
 </script>>

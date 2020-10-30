@@ -39,6 +39,8 @@ import Collections from '../views/Collections'
 import ms_Home from '../views/ms_Home.vue'
 import shopping from '../views/shopping.vue'
 import pay from '../views/pay.vue'
+import huoguo from '../views/huoguo.vue'
+import zhong  from '../views/zhong.vue'
 
 Vue.use(VueRouter)
 
@@ -96,7 +98,7 @@ const routes = [
   component: Home
 },
 {
-  path:'/details/:fid',
+  path:'/ktv_details/:fid',
   component: Details,
   props:true
 },
@@ -166,9 +168,18 @@ const routes = [
 },
 //刘艳萍
 {
+  path: '/huoguo',
+  name: 'huoguo',
+  component: huoguo
+},
+{
   path: '/ms_Home',
   name: 'ms_Home',
   component: ms_Home
+},
+{
+  path:'/zhong',
+  component:zhong
 },
 {
   path:'/shopping',
@@ -179,7 +190,7 @@ const routes = [
   component:pay
 },
 {
-  path: '/ms_details',
+  path: '/ms_details/:cid',
   name: 'ms_Details',
   // route level code-splitting
   // this generates a separate chunk (about.[hash].js) for this route

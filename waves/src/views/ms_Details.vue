@@ -1,11 +1,11 @@
 <template>
   <div class="content">
 			<div class="nav">
-				<el-breadcrumb separator-class="el-icon-arrow-right">
-    <el-breadcrumb-item>西安美团</el-breadcrumb-item>
-    <el-breadcrumb-item>西安美食</el-breadcrumb-item>
-		 <el-breadcrumb-item>西安火锅</el-breadcrumb-item>
-    </el-breadcrumb>
+	     <el-breadcrumb separator-class="el-icon-arrow-right">
+         <el-breadcrumb-item>西安美团</el-breadcrumb-item>
+         <el-breadcrumb-item>西安美食</el-breadcrumb-item>
+		     <el-breadcrumb-item>西安火锅</el-breadcrumb-item>
+       </el-breadcrumb>
 			</div>
 		
 <!-- 详细信息 -->
@@ -24,38 +24,51 @@
 				<p>营业时间:周一至周日 10:00-24:00</p>
 			   </div>
 			   <div class="wife">
-			   <img src="../assets/img/wife.png" />
+			   <img src="../assets/img/wife.png"  />
+				 <p>提供wifi</p>
 			   </div>
-			</div>
-			
+		 </div>
+			<div class="zhezhao" v-show="zhezhao">
+				<button class="close" @click="close">×</button>
+     <div style="width: 300px;height: 300px">
+            <img :src="ImgUrl" style="width:500px">
+     </div>
+ 
+    <div class="little_img" >
+        <ul v-for="(img,index) in imgUrl" :key="index">
+            <li @click='getIndex(img.url)'>
+                <img :src="img.url" style="width: 100px; height: 100px" >
+            </li>
+        </ul>
+    </div>
+
+</div>
+
 			<!-- 大图 -->
-			<div class="right">
+			<div class="right" >
 				 
 			 <div class="big">
-				 <img src="../assets/img/yu_big.png" >
+				 <img src="../assets/img/yu_big.png" @click="zhe"  >
 			 </div>	
 			 
 			 <!-- 小图 -->
-			 	<ul>
+			 <ul>
 				<li>
-				 <img src="../assets/img/01.png" alt="">
+				 <img src="../assets/img/01.png">
 				</li>
-				<li>
-				 <img src="../assets/img/04.png" alt="">
+					<li>
+				 <img src="../assets/img/03.png">
 				</li>
-				<li>
-				 <img src="../assets/img/03.png" alt="">
+					<li>
+				 <img src="../assets/img/04.png">
 				</li>
-				<li>
-				 <img src="../assets/img/06.png" alt="">
+					<li>
+				 <img src="../assets/img/05.png">
 				</li>
-				
 			</ul> 
-			 
-			
 			</div>
-			
-   </div>				 
+	</div>
+			 
 
 <div class="btm-cont">
 	
@@ -71,7 +84,7 @@
 							<img src="../assets/img/cont_1.png" >
 						</div>
 						<div class="info">
-							<router-link to="/shopping">立即抢购</router-link>
+							<router-link to="/shopping?u_id=1">立即抢购</router-link>
 							<p class="name">
 								<span>经典小资双人餐,包间免费</span>
 								<img src="../assets/img/meituan.png" >
@@ -96,11 +109,11 @@
 					
 				</div>
 				
-		</div>
+		 </div>
 		
 		
 		<!-- 代金券 -->
-		
+
 		<div class="vouchers">
 			<h4>2张代金券</h4>
 				
@@ -133,7 +146,7 @@
 	   已售160
 	</div>
 </div>								
-</div>
+   </div>
 
 	
 
@@ -173,56 +186,236 @@
 				</div>
 			</li>
 		</ul>
-		
+			<div class="list clear">
+		<span>上脑肥牛</span>
+		<span>海带苗</span>
+		<span>包浆豆腐</span>
+		<span>双椒吊龙牛肉</span>
+		<span>麻辣牛肉</span>
+		<span>平菇</span>
+		<span>现切牛魔王</span>
+		<span>土豆片</span>
+		<span>冬瓜</span>
+		<span>海霸王虾饺</span>
+		<span>厚切午餐肉</span>
+		<span>四川莴笋尖</span>
+		<span>渝水情腰片王</span>
+		<span>菌汤锅</span>
+		<span>鲜豆皮</span>
+		<span>井水豆芽</span>
+		<span>纤夫老肉片</span>
+		<span>魔芋块</span>
+		<span>番茄太极锅底</span>
+		<span>娃娃菜</span>
+		<span>脆爽牛舌</span>
+		<span>鳕鱼捞</span>
+		<span>鲜鸭血</span>
+		<span>巴沙鱼片</span>
+		<span>冻豆腐</span>
+		<span>乌鸡肉</span>
+		<span>鱼豆腐</span>
+		<span>干贡菜</span>
+		<span>纯鸭血</span>
+		<span>马面鱼</span>
+		<span>鱼丸</span>
+		<span>莲藕</span>
+		<span>菌汤鸳鸯锅</span>
+		<span>香菜嫩牛肉</span>
+		<span>川粉</span>
+		<span>现炸小酥肉</span>
+		<span>油炸豆皮</span>
+		<span>脑花</span>
+		<span>肥牛一号</span>
+		<span>海白菜</span>
+		<span>宜宾小香肠</span>
+		<span>霸王蟹棒</span>
+		<span>重庆空运鲜鹅肠</span>
+		<span>自家卤肥肠</span>
+	</div>
+</div>	
+</div>
+
+
+<div class="comment">
 	
-		<div id="list">
-			<span>海带苗</span>
-			<span>上脑肥牛</span>
-			<span>包浆豆腐</span>
-			<span>平菇</span>
-			<span>土豆片</span>
-			<span>冬瓜</span>
-			<span>海霸王虾饺</span>
-			<span>腰片王</span>
-			<span>菌汤锅</span>
-			
-			<span>麻辣牛肉</span>
-			<span>鲜豆皮</span>
-			<span>番茄太极锅</span>
-			<span>井水豆芽</span>
-			<span>魔芋块</span>
-			<span>莴笋尖</span>
-	</div>	
-</div>		
-   </div>
-	 </div>
-	 <!-- 右半部分 -->
-	<div class="btm-right">
-		<div>
-		<h4>猜你喜欢</h4>
+	<div class="total">
+		<div class="sort">
+			<span class="on">质量排序</span>
+			<span class="">时间排序</span>
 		</div>
-		 <div class="dian"
-	 :id="right.r_id.toString()"
-		 v-for="(right,index) of bus"
-	  :key="index" >
+		138条网友点评
+	</div>
+	<div class="com-cont">
+		<ul class="tags clear">
+			<li class="">服务热情(34)</li>
+			<li class="">环境很好(29)</li>
+			<li class="">菜品不错(25)</li>
+			<li class="">味道赞(23)</li>
+			<li class="">上菜快(12)</li>
+			<li class="">性价比高(12)</li>
+			<li class="">价格实惠(12)</li>
+			<li class="">回头客(10)</li>
+			<li class="">店内消毒(1)</li>
+			<li class="">分量少(5)</li>
+		</ul>
+    <div class="sea">
+		  <span><b class=""></b>只看有图片的评论</span>
+	  </div>	
+	<div>
+		<div class="list clear">
+			<div class="header">
+				<div class="imgbox" style="height: 100%; width: 100%;">
+					<img src="https://img.meituan.net/avatar/1b70cdb2c95378c631de60a2e87623f98925.jpg@60w_60h_1e_1c">
+				</div>
+			</div>
+			<div class="info">
+				<div class="name">小欣欣可爱</div>
+					<div class="date">
+						<span>2020年10月9日</span>
+					</div>
+							<div class="desc">
+								本来要去别的但是人太多了，就去这家，总体不错，二楼还是半包厢的，味道也好，服务也不错每个桌子上都有服务铃，两个人吃了260的，推荐鹅肠小酥肉小油条，下次还去吃，喜欢喜欢喜欢喜欢喜欢喜欢喜欢喜欢喜欢喜欢喜欢</div>
+								<div class="reply">
+									商家回复：尊敬的顾客您好！感恩遇见，感谢您能选择本店用餐，更感谢您对我们的支持与肯定，我们一定会继续努力做到更好，渝水情全体员工祝您及家人身体健康，工作顺利！</div>
+											<div class="footer">
+												<div class="footerCount">
+													<el-badge :value="12" class="item">
+                              <el-button size="small">评论</el-button>
+                          </el-badge>
+                          <el-badge :value="3" class="item">
+                            <el-button size="small">回复</el-button>
+                          </el-badge>
+                          <el-badge :value="1" class="item" type="primary">
+                            <el-button size="small">评论</el-button>
+                          </el-badge>
+                          <el-badge :value="2" class="item" type="warning">
+                            <el-button size="small">回复</el-button>
+                          </el-badge>
+
+                          <el-dropdown trigger="click">
+                              <span class="el-dropdown-link">
+                            点我查看<i class="el-icon-caret-bottom el-icon--right"></i>
+                             </span>
+                          <el-dropdown-menu slot="dropdown">
+                         <el-dropdown-item class="clearfix">
+                          评论
+                         <el-badge class="mark" :value="12" />
+                         </el-dropdown-item>
+                        <el-dropdown-item class="clearfix">
+                           回复
+                       <el-badge class="mark" :value="3" />
+                       </el-dropdown-item>
+                      </el-dropdown-menu>
+                     </el-dropdown>
+													</div>
+											</div>
+										</div>
+										<div type="button" class="arrow right-arrow">
+											
+										</div>
+									</div>
+								</div>
+						</div>
+				</div>
+				<div class="line"></div>
+			</div>
+
+<div class="btm-right">
+	<div>
+	<h4>猜你喜欢</h4>
+	</div>
+	<div class="dian"
+		 v-for="(right,i) of bus"
+	  :key="i" >
 		<ul>
 		<li>
-		<a href="#"><img :src="right.r_pic"></a>
-        <p class="name">{{right.r_name}}</p>
+		<a href="#">
+			<img src="../assets/img/luo.png" /></a>
+      <p class="name">{{right.r_name}}</p>
 	    <p class="desc">{{right.r_adr}}</p>
 		<p class="price"><b>￥</b>{{right.price}}</p>
 		</li>	
 		</ul>
    </div>	
+   </div>
 	</div>
-</div>	
-</div>		
+</div>
 </template>
+<script>
+ export default{
+	 data(){
+     return{
+		 bus:[],
+		 zhezhao:false,
+     imgUrl: [
+                {name:'2' ,url: require('../assets/img/03.png') },
+            ],
+            //大图片默认显示第一张
+            ImgUrl:require('../assets/img/01.png')
+		 }
+	},
+		methods:{
+		close(){
+     this.$router.go(0);
+			},
+	  zhe(){
+			this.zhezhao = true;
+		},
+		  getIndex(imgUrl){
+        this.ImgUrl = imgUrl
+
+    }
+		},
+  mounted(){
+
+  this.axios.get('/bus').then(res=>{
+		this.bus= res.data.results;
+		})
+	}
+ }
+ </script>
 <style scoped>
+      *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+		.little_img{
+   margin-top:100px;
+
+		}
+		.little_img>ul{
+			float: left;
+			width: 300px;
+		}
+.close{
+color: #000;
+width: 50px;
+height: 40px;
+}
+.zhezhao{
+	 position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.zhezhao img{
+ max-width: 100%;
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 1000;
+}
 .content{
 	width: 1190px;
 	height: 3500px;
-	margin: auto;
+	margin:0 auto;
 }
 .content>.nav{
 	padding: 19px;
@@ -274,13 +467,21 @@
 			padding:16px 0 11px;
 			font-size:14px;
 		}
+.detail>.right{
+			float: left;
+			width: 380px;
+			overflow: hidden;
+			cursor: pointer;
+		}
+
+
 		.detail>.right{
 			float: left;
 			width: 380px;
 			overflow: hidden;
 			cursor: pointer;
 		}
-			
+
 		
 		.detail>.right>ul{
 			width:385px;
@@ -303,8 +504,6 @@
 			
 		}
 		
-		
-		
 		.btm-cont{
 			color: #222;
 			padding-top:40px;
@@ -320,7 +519,7 @@
 		margin-bottom: 8px;
 	}
 	.btm-left>.btm-group{
-		 width: 908px;
+		 width: 920px;
 		 height: 302px;
 		background:#fff;
 		border:1px solid #e5e5e5;
@@ -513,6 +712,7 @@
 		border-radius:4px;
 		padding:20px;
 		height:400px;
+		width: 920px;
 	}
 	
 	.vouchers>.one{
@@ -620,6 +820,7 @@
 		overflow: hidden;
 		margin-bottom:40px;
 		float:left;
+		
 	}
 	.recommend,
 	.cont{
@@ -644,27 +845,220 @@
 	}
 	.list{
 		padding:25px 0 0 6px;
+		margin-left:30px;
 	}
-	.list span{
-		display: block;
-		float: left;
-		margin:0 30px 19px 0 ;
-		font-size: 16px;
-		line-height: 20px;
-		color: #333;
-	}
-	</style>
-	<script>
-	 export default{
-	 data(){
-     return{
-		   bus:[]
-		 }
-	},
+
+	.list >span {
+    display: block;
+    float: left;
+    margin: 0 20px 19px 0;
+    font-size: 16px;
+    line-height: 20px;
+    color: #333;
+}
+
+.comment {
+    margin-bottom: 40px;
+		width: 950px;
+		height: 900px;
+		/* border: 1px solid #e5e5e5; */
+}
+
+.comment >.total {
+    font-size: 20px;
+    line-height: 26px;
+		
+} 
+
+ .comment >.com-cont {
+    margin-top: 8px;
+    background: #fff;
+    border-radius: 4px;
+    padding: 0 20px 40px;
+    color: #666;
+		border: 1px solid #e5e5e5;
+}
+
+.sort {
+    cursor: pointer;
+    float: right;
+    font-size: 12px;
+    color: #999;
+}
+.sort span {
+    font-size: 12px;
+    margin-left: 20px;
+}
+.on {
+    color: #00c9b3;
+}
+ .com-cont {
+    margin-top: 8px;
+    background: #fff;
+ 
+    border-radius: 4px;
+    padding: 0 20px 40px;
+    color: #666;
+}
+ .tags {
+    padding-top: 15px;
+}
+
+.tags li {
+    float: left;
+    font-size: 14px;
+    line-height: 34px;
+    padding: 0 10px;
+    border: 1px solid #e5e5e5;
+    border-radius: 2px;
+    margin: 0 10px 10px 0;
+    cursor: pointer;
+		list-style-type: none;
+}
+.sea {
+    margin-top: 22px;
+    font-size: 14px;
+}
+.sea span{
+    display: inline-block;
+    line-height: 20px;
+    cursor: pointer;
 	
-  mounted(){
-  this.axios.get('/bus').then(res=>{
-		this.bus= res.data.results;
-		})
-	}
- }</script>
+}
+
+ .sea span b{
+    width: 15px;
+    height: 15px;
+    border-radius: 2px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    vertical-align: text-bottom;
+    margin-right: 6px;
+}
+ .list {
+    padding: 30px 0 0;
+}
+.header {
+    width: 60px;
+    height: 60px;
+    
+    float: left;
+}
+
+.list,
+.info {
+    float: left;
+    padding-left: 20px;
+    width: 828px;
+}
+
+.name {
+    font-size: 16px;
+    color: #222;
+    line-height: 22px;
+    margin-bottom: 1px;
+}
+
+.date {
+    font-size: 12px;
+    line-height: 20px;
+    color: #999;
+}
+.date span {
+    float: right;
+}
+
+.iconfont {
+    font-size: 12px;
+}
+.info ,
+.desc {
+    font-size: 14px;
+    line-height: 20px;
+    padding-top: 13px;
+}
+
+ .reply {
+    font-size: 14px;
+    color: #31bbac;
+    padding-top: 12px;
+}
+
+ .com-image-viewer {
+    padding-top: 10px;
+    position: static;
+    background: #fff;
+    overflow: hidden;
+    cursor: pointer;
+}
+.iconfont {
+    font-family: iconfont!important;
+    font-size: 12px;
+    font-style: normal;
+
+}
+.imageViewer-content {
+    width: 100%;
+    z-index: 2001;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+.imgs-content {
+    width: auto;
+}
+.com-image-viewer ,
+.imgs-content {
+    padding-top: 180px;
+    position: relative;
+    margin: 0;
+		width: 140px;
+		height: 140px;
+}
+ .header {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    float: left;
+}
+
+ .header >.close {
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    cursor: pointer;
+    display: inline-block;
+    background: 0 0;
+    color: #fff;
+    border: 0;
+}
+ .like-cont {
+    text-align: right;
+    margin: 17px 0 16px;
+}
+ .like {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 12px;
+    color: #666;
+}
+
+.like b {
+    background-image: url(/bs/file/?f=meis/meishi.web:assets/a9850ffbcbd6b5e6.png@53635fc);
+    background-size: 100% 100%;
+    width: 15px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: text-bottom;
+}
+
+ .like span {
+    vertical-align: middle;
+} 
+.item {
+  margin-top: 10px;
+  margin-right: 40px;
+}
+</style>
+	

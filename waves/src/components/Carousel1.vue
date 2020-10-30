@@ -1,17 +1,22 @@
 <template>
   <div id="slider">
     <div class="window" @mouseover="stop" @mouseleave="play">
+    <!-- 1.轮播图 -->
       <ul class="container" :style="containerStyle">
         <li>
-          <img
+          <router-link :to="sliders[sliders.length - 1].to">
+            <img
             style=""
             :style="{ width: imgWidth + 'px' }"
             :src="sliders[sliders.length - 1].img"
             alt=""
           />
+          </router-link>
         </li>
         <li v-for="(item, index) in sliders" :key="index">
-          <img :style="{ width: imgWidth + 'px' }" :src="item.img" alt="" />
+          <router-link :to="item.to">
+            <img :style="{ width: imgWidth + 'px' }" :src="item.img" alt="" />
+          </router-link>
         </li>
         <li>
           <img
@@ -21,13 +26,14 @@
           />
         </li>
       </ul>
-      <ul class="direction">
+      <!-- 左右箭头 -->
+      <ul class="direction" v-show="carShow">
         <li class="left" @click="move(600, 1, speed)">
           <svg
             class="icon"
-            width="30px"
-            height="30.00px"
-            viewBox="0 0 1024 1024"
+            width="20px"
+            height="20px"
+            viewBox="0 0 1010 1010"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -40,9 +46,9 @@
         <li class="right" @click="move(600, -1, speed)">
           <svg
             class="icon"
-            width="30px"
-            height="30.00px"
-            viewBox="0 0 1024 1024"
+            width="20px"
+            height="20px"
+            viewBox="0 0 1020 1020"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -53,6 +59,7 @@
           </svg>
         </li>
       </ul>
+      <!-- 轮播指示符 -->
       <ul class="dots">
         <li
           v-for="(dot, i) in sliders"
@@ -85,8 +92,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   background-color: rgba(0, 0, 0, 0.3);
   border-radius: 50%;
   cursor: pointer;
@@ -112,12 +119,12 @@ img {
 }
 .dots li {
   display: inline-block;
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   margin: 0 3px;
   border: 1px solid white;
   border-radius: 50%;
-  background-color: #333;
+  background-color: #fff;
   cursor: pointer;
 }
 .dots .dotted {
@@ -143,18 +150,23 @@ export default {
       sliders: [
         {
           img: "http://p0.meituan.net/codeman/a97baf515235f4c5a2b1323a741e577185048.jpg",
+          to:"#"
         },
         {
           img: "http://p0.meituan.net/codeman/daa73310c9e57454dc97f0146640fd9f69772.jpg",
-        },
-        {
-          img: "https://p1.meituan.net/travelcube/01d2ab1efac6e2b7adcfcdf57b8cb5481085686.png",
-        },
-        {
-          img: "http://p1.meituan.net/codeman/826a5ed09dab49af658c34624d75491861404.jpg",
+          to:"/jd_index"
         },
         {
           img: "http://p0.meituan.net/codeman/33ff80dc00f832d697f3e20fc030799560495.jpg",
+          to:"/men"
+        },
+        {
+          img: "http://p1.meituan.net/codeman/826a5ed09dab49af658c34624d75491861404.jpg",
+          to:"/ms_Home"
+        },
+        {
+          img: "https://p1.meituan.net/travelcube/01d2ab1efac6e2b7adcfcdf57b8cb5481085686.png",
+          to:"#"
         },
       ],
       imgWidth: 600,
@@ -162,6 +174,7 @@ export default {
       distance: -600,
       transitionEnd: true,
       speed: this.initialSpeed,
+      carShow:false
     };
   },
   computed: {
@@ -230,6 +243,7 @@ export default {
       this.move(offset, direction, jumpSpeed);
     },
     play() {
+      this.carShow=false;
       if (this.timer) {
         window.clearInterval(this.timer);
         this.timer = null;
@@ -239,6 +253,7 @@ export default {
       }, this.interval);
     },
     stop() {
+      this.carShow=true;
       window.clearInterval(this.timer);
       this.timer = null;
     },

@@ -411,6 +411,7 @@ text-align: left;
 		}
 	},
 	mounted(){
+		// 获取地址栏信息
 		let data=this.$route.path
 		this.data=data
 		if(data == 'men'){
@@ -430,8 +431,10 @@ text-align: left;
 		}
 	},
 	watch:{
+		//监听地址栏
 		'$route'(){
 			this.data=this.$route.path
+			this.$router.go(0)
 		}
 	},
 methods:{
@@ -441,6 +444,7 @@ methods:{
 		
 		let value=input.value
 		this.like = value
+		// 按照搜索框输入信息查找相关电影
 			this.axios.get('/header/'+ this.like).then(res=>{
 			 let obj=res.data.results
 	for(let i=0;i<obj.length - 1 ;i++){

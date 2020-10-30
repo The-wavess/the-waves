@@ -881,6 +881,7 @@ span.right_wan.float_right{
 			
 		},
 		movesTo(i){
+			//电影右边距乘第几张图片
 			this.li=this.i
 			let lunbo=document.querySelector('.header_1')
 			lunbo.style.right=i*1200+'px'
@@ -890,9 +891,11 @@ span.right_wan.float_right{
 			}		
 	
 		},
+		//清除定时器
 		clears(){
 			 clearInterval(this.timer)
 		},
+		//数遍移除时执行定时器
 		clearout(){
 		this.timer=setInterval(()=>{
 				this.li=this.i

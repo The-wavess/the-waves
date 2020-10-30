@@ -1,7 +1,5 @@
 <template>
   <div class="index">
-			
-		
 		<!-- 主页面左边 -->
 		<div class="left">	
 		<!-- 导航栏 -->	
@@ -27,7 +25,7 @@
 		<ul class="first1" >
 			<li><a href="">代金券</a></li>
 			<li><a href="">蛋糕</a></li>
-			<li><a href="">火锅</a></li>
+			<li><a class="on" href="/huoguo">火锅</a></li>
 			<li><a href="">奶茶</a></li>
 			<li><a href="">海鲜</a></li>
 			<li><a href="">西餐</a></li>
@@ -68,7 +66,7 @@
          </span>
          <el-dropdown-menu slot="dropdown">
            <el-dropdown-item>小寨</el-dropdown-item>
-           <el-dropdown-item>曲江新区</el-dropdown-item>
+           <el-dropdown-item><a href="/zhong">曲江新区</a></el-dropdown-item>
            <el-dropdown-item>大雁塔</el-dropdown-item>
            <el-dropdown-item disabled>翠华路</el-dropdown-item>
            <el-dropdown-item divided>明德门</el-dropdown-item>
@@ -227,18 +225,19 @@
 	<div class="total_sj" >
 	 	<ul class="a">
 	 	<li class="dianpu"
-		 :id="item.b_id.toString()"
 		 v-for="(item,index) of bussines"
 	  :key="index" >
-			 <router-link to="/ms_details">
+			 <router-link :to="`/ms_details/cid=${(item.href || '' ).split('=')[1]}`">
 				<div class="pic">
-					<img :src="item.b_pic">
+					<img v-lazy="item.b_pic">
 				</div>
 				</router-link>
 				<div class="desc">	   
 			    <h4>{{item.b_name}}</h4>
 					<p>{{item.b_desc}}</p>
-					 <p>人均¥{{item.average_person}}</p>
+					 <p>人均¥{{item.average_person}}
+						 <span class="talk">{{item.b_talk}}人评论</span>
+					 </p>
 				</div>
 			</li>
 	    
@@ -247,18 +246,17 @@
 	</div>
 		
 		<!-- 分页 -->
-		<div class="mt-pagination">
-		<ul class="pagination">
-			<li class="page-item"><span class="page-link">&lt;</span></li>
-			<li class="page-item"><span class="page-link">1</span></li>
-			<li class="page-item"><span class="page-link">2</span></li>
-			<li class="page-item"><span class="page-link">3</span></li>
-			<li class="page-item"><span class="page-link">4</span></li>
-			<li class="page-item"><span class="page-link">...</span></li>
-			<li class="page-item"><span class="page-link">10</span></li>
-			<li class="page-item"><span class="page-link">&gt;</span></li>
-		</ul>
-        </div>
+		<div class="block">
+    
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page.sync="currentPage3"
+      :page-size="100"
+      layout="prev, pager, next, jumper"
+      :total="1000">
+    </el-pagination>
+  </div>
    </div>
   
 <!-- 主页右边部分 -->
@@ -273,7 +271,7 @@
 		<ul>
 		<li>
 		<a href="#">
-			<img :src="right.r_pic"></a>
+			<img v-lazy="right.r_pic"></a>
       <p class="name">{{right.r_name}}</p>
 	    <p class="desc">{{right.r_adr}}</p>
 		<p class="price"><b>￥</b>{{right.price}}</p>
@@ -283,20 +281,59 @@
     </div>	
     </div>		 
 </template>
-<style scoped>
+<script>
+ export default{
+	 data(){
+    return{
+		bussines:{
+			href:""
+		},
+		bus:[],
+		currentPage3: 5,
 
+		 }
+	},
+	methods:{
+     handleSizeChange(val) {
+        // console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        // console.log(`当前页: ${val}`);
+      }
+	},
+  mounted(){
+    // 获取文章分类信息
+    this.axios.get('/bussines').then(res=>{
+     this.bussines = res.data.results;
+			 
+		}),
+   this.axios.get('/bus').then(res=>{
+    this.bus= res.data.results;	 
+	})
+ }
+ }
+</script>
+<style scoped>
+ .talk{
+    margin-left: 10px;
+    color: #f60;
+		font-size: 14px;
+ }
+
+     .block{
+			 margin-top:80px;
+			 margin-left:200px
+		 }
 			.breadcrumb{
 				width:74.375rem;height:3.4375rem;
 				margin-left: 15px;
 				margin-top:60px;
 				}
-			
-			
-				
+		
 				.xuanze{
-				    width:950px;height:312px ;
-			        display: flex;
-				    flex-wrap: wrap;
+				  width:950px;height:312px ;
+			    display: flex;
+				  flex-wrap: wrap;
 					position: relative;
 					border:1px solid #e5e5e5;
 					background: #fff;
@@ -405,41 +442,16 @@
 						border-radius: 4px;
 						
 					}
+			.first li a:active{
+    background: #13D1BE;
+    color: #fff!important;
+    border-radius: 100px;
+     }
 					
-					.desc{
-						float:left;
-				        margin-left:25px;
-						}
-					.mt-pagination{margin-left:180px;}
-				
-					.pagination{
-						text-align: center;
-						margin-top: 40px;
-					}	
-					.page-item{
-						width:40px;
-						float:left;
-						margin: 0 10px;
-						font-size: 16px;
-						list-style: none;
-						/* text-align: ; */
-					}
-					.page-link{
-						height: 40px;
-						line-height: 40px;
-						color: #999;
-						cursor: pointer;
-						border:1px solid #ccc;
-						display: block;
-						width: 100%;
-						border-radius: 50%;
-						text-decoration: none;
-					}
-					.page-link:active{
-						background-color: #13D1BE;
-						border-color: #13D1BE;
-							
-					}
+		.desc{
+		float:left;
+		margin-left:25px;
+	}
 					
 			.left{
 				width:788px;
@@ -497,24 +509,3 @@
 					list-style:none;
 				}
 </style>
-<script>
- export default{
-	 data(){
-    return{
-		bussines:[],
-		bus:[]
-		 }
-	},
-	
-  mounted(){
-    // 获取文章分类信息
-    this.axios.get('/bussines').then(res=>{
-     this.bussines = res.data.results;
-			 
-		}),
-   this.axios.get('/bus').then(res=>{
-    this.bus= res.data.results;	 
-	})
- }
- }
-</script>

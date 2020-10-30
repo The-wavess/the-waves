@@ -12,12 +12,17 @@
     </div>
 <!-- 项目 -->
 <div class="right right-widen">
-  <div class="order clear-fix">
+  <div class="order clear-fix"  v-for='(item, index) in price' :key="index">
     <span class="block-left">
-      <div class="order-name">项目：老成都火锅烧烤4-6人餐</div>
+      <div class="order-name">{{item.u_name}}</div>
     </span>
+  
+    	<span class="input-number">
+				<button @click="reduce(index)">-</button>
+				<input type="text" v-model="number">
+				<button @click="plus(index)">+</button>
+			</span>
     <span class="block-right">
-      <div class="amount"> 应付金额 ¥ </div>
     </span>
 </div>
 <div class="payment-container">
@@ -77,10 +82,11 @@
             </li>
           </ul>
        </div>
+       
      </div>
 
     <div class="payment-submit-area clear-fix">
-      <div class="amount">支付 ¥ <span class="amount-price">110.00</span></div>
+      <div class="amount">支付￥<span class="amount-price">{{totalPrice}}</span></div>
         <div class="payment-submit"><a class="btn">去付款</a></div>
           <div class="payment-back"><a>返回修改订单</a></div>
            </div>
@@ -89,17 +95,21 @@
     </div>
   </div>
 </template>
-
-<script scoped>
+<script>
   export default {
   data() {
     return {
       minutes:30,
       seconds: 0,
-      time:0
+      time:0,
+      number:0,
+      price:[]
+     
     }
   },
+ 
   mounted() {
+     
     this.add();
 
     //取消订单
@@ -107,26 +117,36 @@
     THIS.time=1800;
     setInterval(THIS.countDown,1000);
 
-
-    this.axios.get('/buy').then(res=>{
-       this.cart= res.data.results;
-    })
+     this.axios.get('/buy').then(res=>{
+		 this.price= res.data.results;
+	})
   },
   methods: {
+   plus(index) {
+		this.number++
+	},
+	reduce(index) {
+	if (this.number === 0) {
+	return
+	}
+	this.number--
+   },
+   
+
     // 倒计时
-    num: function(n) {
-      return n < 10 ? "0" + n : "" + n;
-    },
-    add: function() {
-      var _this = this;
-      var time = window.setInterval(function() {
-        if (_this.seconds === 0 && _this.minutes !== 0) {
-          _this.seconds = 59;
+  num: function(n) {
+    return n < 10 ? "0" + n : "" + n;
+  },
+  add: function() {
+   var _this = this;
+   var time = window.setInterval(function() {
+     if (_this.seconds === 0 && _this.minutes !== 0) {
+         _this.seconds = 59;
           _this.minutes -= 1;
-        } else if (_this.minutes === 0 && _this.seconds === 0) {
+     } else if (_this.minutes === 0 && _this.seconds === 0) {
           _this.seconds = 0;
           window.clearInterval(time);
-        } else {
+     } else {
           _this.seconds -= 1;
         }
       }, 1000);
@@ -163,13 +183,21 @@
     }
 
   },
+ 
   computed: {
     second: function() {
       return this.num(this.seconds);
     },
     minute: function() {
       return this.num(this.minutes);
-    }
+    },
+    totalPrice(){
+    	let total = 0;
+      for(let i = 0;i<this.price.length;i++){
+	     	total += this.number * this.price[i].u_price;
+     }
+	      return total;
+	  }
   }
   }
 </script>
@@ -182,6 +210,39 @@
   width:1180px;
   margin: 0 auto;
 }
+
+.input-number{
+		display:block;
+		border: 1px solid #e5e5e5;
+		border-radius: 2px;
+		float:right;
+	}
+	
+	.input-number button{
+		position: relative;
+	  box-sizing:content-box;
+  	outline: 0;
+		background-color: #fff;
+		cursor: pointer;
+		vertical-align: top;
+	}
+	
+	.input-number button,
+	.input-number input{
+		padding: 0;
+		width: 34px;
+		height: 34px;
+		border:none;
+	} 
+	.input-number input{
+		color: #222;
+		border: 1px solid #e5e5e5;
+		border-top: none;
+		border-bottom:none;
+		vertical-align: top;
+		text-align: center;
+		font-size:14px;
+	}
 .cd{
     height: 40px;
     line-height: 40px;
@@ -220,6 +281,7 @@
   border: 1px solid #e5e5e5;
   border-radius:4px;
   margin-bottom: 10px;
+  height:70px;
 
 }
  .order>.block-left{
@@ -236,6 +298,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     margin-right: 15px;
+   
 }
 
 .order .block-right {
@@ -263,12 +326,6 @@
 .credit.disabled {
     color: #ccc;
 }
-
-
-/* .block-left, .block-right {
-    width:50%;
-    float: left;
-} */
 
 .checkbox-shim {
     float: left;
@@ -324,9 +381,6 @@ a, button, input, select {
 .block-right {
     text-align: right;
 }
-
-
-
 
 .credit {
     height: 61px;
@@ -384,7 +438,6 @@ ul {
     position: absolute;
 }
 
-
 .payment-tips li {
     float: right;
     line-height: 22px;
@@ -395,16 +448,12 @@ ul {
     color: #666;
 }
 
-
 .payment-dropdown {
     cursor: pointer;
     position: relative;
     padding-right: 15px;
     display: inline-block;
 }
-
-
-
 
 .payment-back, .payment-submit {
     float: right;
@@ -428,8 +477,6 @@ ul {
     background-image: linear-gradient(180deg,#ffa114,#f59300);
 }
 
-
-
 .payment-0 .payment-list-0, .payment-1 .payment-list-1, .payment-2 .payment-list-2 {
     display: block;
 }
@@ -438,7 +485,6 @@ ul {
     display: none;
     margin-top: 30px;
 }
-
 .payment-list li {
     float: left;
     width: 214px;

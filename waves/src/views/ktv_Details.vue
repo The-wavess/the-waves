@@ -1,5 +1,6 @@
 <template>
   <div>
+     <my-header></my-header>
     <div class="daohang" >
       <span>西安美团></span>
       <span>西安休闲娱乐></span>
@@ -45,33 +46,31 @@
       <div class="pc-gallery">
         <div class="piv">
           <div class="piv-preview" style="display:block;">
-            <div class="now-img" :style="sy">
+            <div class="now-img">
+              <img  class="now-img" :src="tupian[i]" >
             </div>
-            <div class="zoom-in"  @click="fdj">
+            <div class="zoom-in" @click="fdj">
               <i class="iconfont icon-zoom_iocn"></i>
             </div>
-            <div class="btn-next">
-              <i class="iconfont icon-btn_right"></i>
+            <div class="btn-next" @click="next">
+              <i class="iconfont icon-btn_right" ></i>
             </div>
-            <div class="btn-pre">
+            <div class="btn-pre" @click="pre">
               <i class="iconfont icon-btn_left"></i>
             </div>
           </div>
-          <div class="piv-album" style="display:block;">
-            <div class="btn-next" >
+          <div class="piv-album" style="display:block;" >
+            <div class="btn-next" @click="moveright">
               <i class="iconfont icon-btn_right" ></i>
             </div>
-            <div class="btn-pre">
-              <i class="iconfont icon-btn_left"></i>
+            <div class="btn-pre" @click="moveleft">
+              <i class="iconfont icon-btn_left" ></i>
             </div>
-            <div class="album-ls">
-              <div class="album-ul clearfix" style="width:3298px; left:0px; transition:left 0.5s;">
-                <div class="img-item" :style="dy"  @mouseover="dyz"></div>
-                <div class="img-item" :style="de" @mouseover="dez"></div>
-                <div class="img-item" :style="ds" @mouseover="dsz"></div>
-                <div class="img-item" :style="fo" @mouseover="foz"></div>
-                <div class="img-item" style="background-image:url(/KTV-img/12.jpg);border:1px solid #fff"></div>
-                <div class="img-item" style="background-image:url(/KTV-img/16.jpg);border:1px solid #fff"></div>
+            <div class="album-ls"  @mouseover="dyz">
+              <div class="album-ul clearfix" :style="{'margin-left':-388*times+'px',width:97*(lunbo.length)+'px'}" v-for="(p,i) of lunbo" :key="i">
+                <div class="img-item"   >
+                  <img class="img-item" :src="p.tupian" :data-i="i">
+                </div>
               </div>
             </div>
           </div>
@@ -101,7 +100,7 @@
               <div class="btn-pre">
                 <i class="iconfont icon-btn_left"></i>
               </div>
-              <div class="album-ul" style="width:2100px;left:0px;transition:left 0.5s;">
+              <div class="album-ul" style="width:3298px; left:0px; transition:left 0.5s;">
                 <div class="img-item" style="background-image:url(/KTV-img/8.jpg);border:1px solid #fff"></div>
                 <div class="img-item" style="background-image:url(/KTV-img/9.jpg);border:1px solid #fff" ></div>
                 <div class="img-item" style="background-image:url(/KTV-img/10.jpg);border:1px solid #fff"></div>
@@ -118,7 +117,7 @@
     <!-- 商品 -->
     <div class="decal">
       <div class="poi-group-offer">
-        <p class="desc">商家优惠促销</p>
+        <p class="desc" style="padding-left:5px;margin-bottom:10px;margin-top:20px">商家优惠促销</p>
         <div class="group-combo">
           <p class="sub-desc">5款套餐</p>
 
@@ -296,6 +295,9 @@
         </div>
       </div>
     </div>
+    <my-footer0></my-footer0>
+    <my-footer1></my-footer1>
+    <my-footer2></my-footer2>
   </div>
 </template>
 <style scoped>
@@ -444,11 +446,16 @@
     transition: opactiy .5s;
     z-index: 9999;
 }
+.pc-gallery .piv .piv-album .album-ls .album-ul {
+ 
+  transition-duration: 0.5s;
+  left: 0;
+}
 .pc-gallery .piv .piv-album .album-ls .album-ul .img-item{
-    width: 90px;
+    width: 91px;
     height: 50px;
     float: left;
-    margin-right: 5px;
+    margin-right: 6px;
     background-position: 100%;
     background-size: 100%;
     border-radius: 4px;
@@ -461,6 +468,7 @@
     margin-top: 10px;
     position: relative;
     width: 384px;
+   
 }
 .pc-gallery .piv .piv-album .btn-pre:hover{
   opacity: 1;
@@ -579,7 +587,6 @@
     font-family: iconfont!important;
     font-size: 12px;
     font-style: normal;
-    -moz-osx-font-smoothing: grayscale;
 }
 .pc-gallery .piv .piv-preview .zoom-in .iconfont{
     position: absolute;
@@ -619,7 +626,7 @@
     position: relative;
     height: 214px;
     width: 383px;
-    background: url(https://p1.meituan.net/education/b8e3626….png) 50% no-repeat;
+    background: url(/KTV-img/fd.png) 50% no-repeat;
     background-size: 100%;
     border-radius: 4px;
 }
@@ -1227,6 +1234,8 @@ export default {
       info: [],
       likes: [],
       pinglun: [],
+      lunbo:[],
+      tupian:[],
       title:'',
       price_per:'',
       phone :'',
@@ -1235,11 +1244,8 @@ export default {
       tingchewei:'',
       detailed_address:'',
       fd:false,
-      sy:"background-image:url(/KTV-img/18.jpg);border:1px solid #fff",
-      dy:"background-image:url(/KTV-img/18.jpg);border:1px solid #fff",
-      de:"background-image:url(/KTV-img/8.jpg);border:1px solid #fff",
-      ds:"background-image:url(/KTV-img/6.jpg);border:1px solid #fff",
-      fo:"background-image:url(/KTV-img/11.jpg);border:1px solid #fff"
+      times:0,
+      i:0,
     };
   },
   methods: {
@@ -1261,17 +1267,40 @@ export default {
         // 将覆盖物对象添加到地图上
         map.addOverlay(marker);
     },
-    foz(){
-      this.sy = this.fo
+    pre(){
+       if(this.i>0){
+        this.i--
+      }
+      if((this.i+1)%4==0){
+        this.moveleft()
+      }
     },
-    dsz(){
-      this.sy = this.ds
+    next(){
+      if(this.i<this.tupian.length-1){
+        this.i++
+      }
+      if(this.i%4==0){
+        this.moveright()
+      }
     },
-    dez(){
-      this.sy = this.de
+    moveleft(){
+      if(this.times>0){
+         this.times--;
+      }
+     
     },
-    dyz(){
-      this.sy = this.dy
+    moveright(){
+      if(this.times<3){
+        this.times++;
+      }
+      
+    },
+    dyz(e){
+      //e.target代替this
+      //只允许img元素触发事件
+      if(e.target.nodeName == "IMG"){
+        this.i = e.target.dataset.i
+      }
     },
     cha(){
       this.fd = false;
@@ -1422,6 +1451,13 @@ export default {
       this.detailed_address=result.data[0].detailed_address;
     });
      this.createMap();//创建地图
+     this.axios.get('/lunbo').then(res=>{
+       this.lunbo = res.data
+       res.data.forEach(item=>{
+         this.tupian.push(item.tupian)
+         
+       })
+     })
   },
 };
 </script>

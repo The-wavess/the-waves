@@ -2,14 +2,18 @@
 	<div>
 		<header class="reg_header">
 			<div id="header1">
-				<a href="/" ><img class="logo" src="img/header/logo.png" ></a>
+				<router-link to="/" ><img class="logo" src="img/header/logo.png" ></router-link>
 				<div class="sign">
 					<span>已有美团账号？</span>
-					<a href="/login">登录</a>
+					<router-link to="/login">登录</router-link>
 				</div>
 			</div>
 		</header>
 				<div class="content">
+					<div class="content1">
+						<span class="reg_text">用户名</span>
+						<input type="reg_text" v-model="uname">
+					</div>
 					<div class="content1">
 						<span class="reg_text">手机号</span>
 						<input type="reg_text" @input="vail" v-model="phone" @focus="tishido">
@@ -42,7 +46,7 @@
 						<span class="msg" :class="spanClass3">{{errMsg3}}</span>
 					</div>
 					<div class="content1">
-						<input class="cont6" type="button" @click="handle" name="" id="" value="同意以下协议并注册" />
+						<button class="cont6"  @click="handle">同意以下协议并注册</button>
 					</div>
 					<div class="cont7">
 						<a href="#">《美团点评用户服务协议》</a>
@@ -64,11 +68,13 @@ export default {
   data() {
     return {
 	  phone: "",
+	  upwd: "",
+	  uname:"",
 	  tishiShow:true,
 	  errMsg1:"",
 	  errMsg2:"",
 	  errMsg3:"",
-	  upwd: "",
+	  
 	  upwdword:"",
       spanClass1:{
         success:false,
@@ -97,13 +103,16 @@ export default {
         // 就清除errMsg的内容
         this.errMsg1="",
         // 清除success和fail两个class的残留
-        this.spanClass1={success:false,fail:false}
+		this.spanClass1={success:false,fail:true}
+		this.errMsg1="手机号不能为空"
       }else if (result==true) {
         this.spanClass1={success:true,fail:false};
-        this.errMsg1="手机号格式正确"
+		this.errMsg1="手机号格式正确"
+		return true;
       }else{
         this.spanClass1={success:false,fail:true};
-        this.errMsg1="手机号格式不正确"
+		this.errMsg1="手机号格式不正确"
+		return false;
       }
       
 	},
@@ -116,13 +125,16 @@ export default {
         // 就清除errMsg的内容
         this.errMsg2="",
         // 清除success和fail两个class的残留
-        this.spanClass2={success:false,fail:false}
+		this.spanClass2={success:false,fail:true}
+		this.errMsg2="密码不能为空"
       }else if (resultm==true) {
         this.spanClass2={success:true,fail:false};
-        this.errMsg2="密码正确"
+		this.errMsg2="密码正确"
+		return true;
       }else{
         this.spanClass2={success:false,fail:true};
-        this.errMsg2="密码错误"
+		this.errMsg2="密码错误"
+		return false
 	  }
 	},
 	upwdwordVail(){
@@ -135,27 +147,32 @@ export default {
 		this.errMsg3="确认密码不能为空"
       }else if (this.upwd!=this.upwdword) {
 		this.spanClass3={success:false,fail:true};
-        this.errMsg3="第二次密码错误"
+		this.errMsg3="第二次密码错误"
+		return false;
       }else{
         this.spanClass3={success:true,fail:false};
-		this.errMsg3="密码正确"
+		this.errMsg3="第二次密码正确"
+		return true;
 	  }
 	},
 	handle(){
-		if (this.vail()&&this.upwdVail()&&this.upwdwordVail()){
+		// if (this.vail()&&this.upwdVail()&&this.upwdwordVail()){
 			// 将获取到的信息提交到web服务器
-			this.axios.post('/register','phone='+this.username+'&upwd='+this.upwd).then(res=>{
-				// 用户注册成功
+			this.axios.post('/register',`phone=${this.phone}&upwd=${this.upwd}&uname=${this.uname}`).then(res=>{
+				console.log(res.data);
+				//用户注册成功
 				if (res.data.code==1) {
+					localStorage.setItem("uname",this.uname);
 					this.$router.push('/');
 				}else{
-					alert('注册提示',"用户名已经占用")
+					alert('注册提示',"手机号已注册")
 				}
 			})
 			
-		}
-	}
-  },
+		// }
+		},
+	
+  	},
 };
 </script>
 
@@ -314,5 +331,8 @@ export default {
   background: pink;
   color: red;
   display: inline;
+}
+input:active{
+  border-color: #ffc300;
 }
 </style>

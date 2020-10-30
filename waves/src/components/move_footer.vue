@@ -6,7 +6,7 @@
 			<a class="font_color" href="">&nbsp;管理团队&nbsp;</a>|
 			<a class="font_color" href="">投资者关系 </a>
 			 友情链接:
-			<a class="font_color" href="">美团网&nbsp;</a>|
+			<router-link to="/" class="font_color">美团网&nbsp;</router-link>|
 			<a class="font_color" href="">&nbsp;格瓦拉&nbsp;</a>|
 			<a class="font_color" href="">美团下载&nbsp;</a>|
 			<a class="font_color" href="">&nbsp;欢喜首映</a>

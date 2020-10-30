@@ -1,5 +1,6 @@
 <template>
   <div>
+    <my-header></my-header>
     <div id="head">
       <!--1.头部 -->
       <div id="header">
@@ -168,7 +169,7 @@
             </div>
             <div class="b_two">
               <router-link
-                :to="`/details/${p.fid}`"
+                :to="`/ktv_details/${p.fid}`"
                 style="text-decoration: none; color: #222222; font-size: 16px"
                 ><span>{{ p.title }}</span></router-link
               >
@@ -243,11 +244,23 @@
               </li>
             </ul>
           </div>
+          <my-footer0></my-footer0>
+          <my-footer1></my-footer1>
+          <my-footer2></my-footer2>
       </div>
     </div>
+   
   </div>
 </template>
 <style scoped>
+#head::after{
+  content: "";
+  clear: both;
+  display: block;
+}
+#head{
+  background-color: #f8f8f8;
+}
 .ys{
   color: #000; 
   text-decoration: none; 
@@ -700,7 +713,7 @@ a {
   font-weight: 700;
 }
 </style>
-<script>
+ <script>
 export default {
   data() {
     return {
@@ -763,6 +776,7 @@ export default {
       this.tj = false;
       this.axios.get("/wangba").then(result=>{
         this.results =result.data;
+        console.log(this.results)
       })
     },
     show() {

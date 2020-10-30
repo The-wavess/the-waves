@@ -398,16 +398,18 @@ export default {
 		}
 	},
 	mounted(){
-		
+		// 获取地址栏信息
 		let lid=this.$route.query.move_sid
+		// 获取div   HTML片段
 		let div=document.getElementsByClassName('header_div font_small')
 
 		if(!lid){
-		
+		//如果没有ID传递，不显示电影详情
 			div[0].style.display = 'none'
 		
 		}
 		this.move_sid=lid
+		//获取上个界面的电影详情
 		this.axios.get('/detail/' + lid).then(res=>{
 			this.data=res.data.results;
 			 })
@@ -415,6 +417,7 @@ export default {
 		this.axios.get('/xiang').then(res=>{
 			this.obj=res.data.results;
 			 })
+			// 设置时间
 		let week=new Date().getDay() + 3
 		let day = new Date().getDate()
 		let	arr = ['周日','周一','周二','周三','周四','周五','周六']

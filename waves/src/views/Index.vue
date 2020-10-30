@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
 	<!-- 表头 -->
 	<my-header></my-header>
 	<router-view/>
@@ -15,7 +15,7 @@
                 id="icon"
                 style="background: url(img/mt/mt-header/美食.png)"
               ></span
-              ><span class="index_text"><a href="#">美食</a></span>
+              ><span class="index_text"><router-link to="/ms_Home">美食</router-link></span>
             </li>
             <li @mouseover="waimai_pop1" @mouseout="waimai_pop2">
               <span
@@ -29,9 +29,9 @@
                 id="icon"
                 style="background: url(img/mt/mt-header/酒店.png)"
               ></span
-              ><span class="index_text"><a href="#">酒店
+              ><span class="index_text"><router-link to="/jd_index">酒店
                   <span class="HOT">HOT</span>
-                </a></span
+                </router-link></span
               >
             </li>
             <li @mouseover="minsu_pop1" @mouseout="minsu_pop2">
@@ -39,14 +39,14 @@
                 id="icon"
                 style="background: url(img/mt/mt-header/民宿.png)"
               ></span
-              ><span class="index_text"><a href="#">民宿</a></span>
+              ><span class="index_text"><router-link to="">民宿</router-link></span>
             </li>
             <li @mouseover="maoyan_pop1" @mouseout="maoyan_pop2">
               <span
                 id="icon"
                 style="background: url(img/mt/mt-header/maoyan.png)"
               ></span
-              ><span class="index_text"><a href="#">猫眼电影</a></span>
+              ><span class="index_text"><router-link to="/men">猫眼电影</router-link></span>
             </li>
             <li>
               <span
@@ -60,7 +60,7 @@
                 id="icon"
                 style="background: url(img/mt/mt-header/KTV.png)"
               ></span
-              ><span class="index_text"><a href="#">休闲娱乐 / KTV</a></span>
+              ><span class="index_text"><router-link to="/home">休闲娱乐 / KTV</router-link></span>
             </li>
             <li>
               <span
@@ -131,8 +131,8 @@
         <!-- 美食 -->
         <div class="left_tan" v-show="meishiShow" @mouseover="meishi_pop1" @mouseout="meishi_pop2">
           <div class="left_nav leibie_tan">
-            <a href="#" class="leibie_a">美食</a>
-            <a href="#" class="gengduo_tan">更多></a>
+            <router-link to="/ms_Home" class="leibie_a">美食</router-link>
+            <router-link to="/ms_Home" class="gengduo_tan">更多></router-link>
           </div>
           <div class="left_nav tan_title">
             <a href="#">代金券</a>
@@ -179,8 +179,8 @@
         <!-- 酒店 -->
         <div class="left_tan" v-show="jiudianShow" @mouseover="jiudian_pop1" @mouseout="jiudian_pop2">
           <div class="left_nav leibie_tan">
-            <a href="#" class="leibie_a">酒店星级</a>
-            <a href="#" class="gengduo_tan">更多></a>
+            <router-link to="/jd_index" class="leibie_a">酒店星级</router-link>
+            <router-link to="jd_index" class="gengduo_tan">更多></router-link>
           </div>
           <div class="left_nav tan_title">
             <a href="#">经济型</a>
@@ -225,8 +225,8 @@
         <!-- 猫眼电影 -->
         <div class="left_tan" v-show="maoyanShow" @mouseover="maoyan_pop1" @mouseout="maoyan_pop2">
           <div class="left_nav leibie_tan">
-            <a href="#" class="leibie_a">热映电影</a>
-            <a href="#" class="gengduo_tan">更多></a>
+            <router-link to="/men" class="leibie_a">热映电影</router-link>
+            <router-link to="/men" class="gengduo_tan">更多></router-link>
           </div>
           <div class="left_nav tan_title">
             <a href="#">我和我的家乡</a>
@@ -241,13 +241,13 @@
             <a href="#">八佰</a>
           </div>
           <div class="left_nav leibie_tan">
-            <a href="#" class="leibie_a">热门影院</a>
-            <a href="#" class="gengduo_tan">更多></a>
+            <router-link to="/xiang" class="leibie_a">热门影院</router-link>
+            <router-link to="/xiang" class="gengduo_tan">更多></router-link>
           </div>
           <div class="left_nav tan_title">
-            <a href="#">万达影城</a>
-            <a href="#">大地影院</a>
-            <a href="#">文投国际影城</a>
+            <router-link to="/xiang">万达影城</router-link>
+            <router-link to="/xiang">大地影院</router-link>
+            <router-link to="/xiang">文投国际影城</router-link>
             <a href="#">CGV影城</a>
             <a href="#">横店电影城</a>
             <a href="#">太平洋电影城</a>
@@ -264,48 +264,83 @@
       <div class="header_right">
         <div class="header_right1">
           <ul class="header_right1-1">
-            <li><a href="#">美团外卖</a></li>
-            <li><a href="#">猫眼电影</a></li>
-            <li><a href="#">美团酒店</a></li>
-            <li><a href="#">民宿/公寓</a></li>
-            <li><a href="#">商家入驻</a></li>
-            <li><a href="#">美团公益</a></li>
+            <li><router-link to="#">美团外卖</router-link></li>
+            <li><router-link to="/men">猫眼电影</router-link></li>
+            <li><router-link to="/jd_index">美团酒店</router-link></li>
+            <li><router-link to="#">民宿/公寓</router-link></li>
+            <li><router-link to="#">商家入驻</router-link></li>
+            <li><router-link to="#">美团公益</router-link></li>
           </ul>
         </div>
    
         <!-- 轮播图，注册 -->
         <div class="header_right2">
+          <!-- 轮播图 -->
           <div class="header_right2-1">
-            <a href="#"
-              ><div
-                class="header_right2-1_"
-                style="background-image: url(img/mt/mt-header/carousel1.jpg)"
-              ></div
-            ></a>
+            <carousel1></carousel1>
           </div>
           <div class="">
-            <a href="#"
+            <router-link to="/home"
               ><div
                 class="header_right2-2"
                 style="background-image: url(img/mt/mt-header/xssh.jpg)"
               ></div
-            ></a>
+            ></router-link>
           </div>
-          <div class="header_right2-3">
+          <div class="header_right2-3" v-if="islogin==false">
             <div class="header_right2-3_">
-              <div class="header_right2-3_1"></div>
+              <div class="header_right2-3_1"><img class="img" src="img/mt/mt-header/avatar.jpg"></div>
               <p class="header_right2-3_2">Hi！你好</p>
-              <a class="header_right2-3_3" href="/register">注册</a><br />
-              <a class="header_right2-3_4" href="/login">立即登录</a>
+              <router-link class="header_right2-3_3" to="/register">注册</router-link><br />
+              <router-link class="header_right2-3_4" to="/login">立即登录</router-link>
+            </div>
+          </div>
+          <div class="header_right2-3" v-else>
+            <div class="header_right2-3_">
+              <div class="header_right2-3_1"><img class="img" src="img/mt/mt-header/head-img.png"></div>
+              <p class="header_right2-3_2">{{username}}</p>
+              <div class="fn-row">
+                <div class="fn-list">
+                <router-link to="/orders">
+                  <div><img src="img/mt/mt-header/dingdan00.png" ></div>
+                  <p>我的订单</p>
+                </router-link>
+              </div>
+              <div class="fn-list">
+                <router-link to="/collections">
+                  <div><img src="img/mt/mt-header/shoucang00.png" ></div>
+                  <p>我的收藏</p>
+                </router-link>
+              </div>
+              <div class="fn-list">
+                <router-link to="/vouchers">
+                  <div><img src="img/mt/mt-header/diyongquan00.png" ></div>
+                  <p>抵用券</p>
+                </router-link>
+              </div>
+              <div class="fn-list">
+                <router-link to="/account">
+                  <div><img src="img/mt/mt-header/yu00.png" ></div>
+                  <p>余额</p>
+                </router-link>
+              </div>
+              <div class="fn-list">
+                <router-link to="/account">
+                  <div><img src="img/mt/mt-header/gengduo00.png" ></div>
+                  <p>更多</p>
+                </router-link>
+              </div>
+              </div>
+              
             </div>
           </div>
           <div class="">
-            <a href="#"
+            <router-link to="/jd_index"
               ><div
                 class="header_right2-4"
                 style="background-image: url(img/mt/mt-header/zjd.png)"
               ></div
-            ></a>
+            ></router-link>
           </div>
           <div class="">
             <a href="#"
@@ -350,43 +385,43 @@
             <span class="sanjiao" v-show="willShow"></span>
           </li>
           <li class="quanbu">
-            <a href="#">
+            <router-link to="/ying">
               <span style="color: #fff">全部</span>
               <span style="color: #fff" class="">&gt;</span>
-            </a>
+            </router-link>
           </li>
         </ul>
       </div>
-      <div class="media index_hidden">
-        <div class="imax2">
-          <a href="#">
+      <div class="media index_hidden" @mouseover="car_pop1" @mouseleave="car_pop2">
+        <div class="imax2" :style="{'margin-left':-1190*trim+'px'}" v-show="doingShow">
+          <router-link to="/detail?move_sid=1">
             <div
               class="imax2_1"
-              style="background-image: url(img/mt/mt-imax/八佰.jpg)"
+              style="background-image: url(img/mt/mt-imax/01.jpg)"
             >
               <div class="">
                 <p class="imax2_p1">
                   观众评
                   <span>9.2</span>
                 </p>
-                <span class="imax2_s1">八佰</span>
+                <span class="imax2_s1">斗罗大陆</span>
                 <span class="imax2_s2">购票</span>
               </div>
-            </div></a>
-          <a href="#">
+            </div></router-link>
+          <router-link to="/detail?move_sid=2">
             <div
               class="imax2_2"
-              style="background-image: url(img/mt/mt-imax/信条.jpg)"
+              style="background-image: url(img/mt/mt-imax/02.jpg)"
             >
               <div class="">
                 <p class="imax2_p1">
                   观众评
-                  <span>8.4</span>
+                  <span>7.8</span>
                 </p>
-                <span class="imax2_s1">信条</span>
+                <span class="imax2_s1">妙先生</span>
                 <span class="imax2_s2">购票</span>
               </div>
-            </div></a>
+            </div></router-link>
           <a href="#">
             <div
               class="imax2_3"
@@ -429,77 +464,252 @@
                 <span class="imax2_s2">购票</span>
               </div>
             </div></a>
-              <a href="#">
+          <a href="#">
             <div
               class="imax2_1"
-              style="background-image: url(img/mt/mt-imax/八佰.jpg)"
+              style="background-image: url(img/mt/mt-imax/06.jpg)"
             >
               <div class="">
                 <p class="imax2_p1">
                   观众评
-                  <span>9.2</span>
+                  <span>9.4</span>
                 </p>
-                <span class="imax2_s1">八佰</span>
+                <span class="imax2_s1">金刚川</span>
                 <span class="imax2_s2">购票</span>
               </div>
             </div></a>
           <a href="#">
             <div
               class="imax2_2"
-              style="background-image: url(img/mt/mt-imax/信条.jpg)"
+              style="background-image: url(img/mt/mt-imax/07.jpg)"
             >
               <div class="">
                 <p class="imax2_p1">
                   观众评
-                  <span>8.4</span>
+                  <span>9.2</span>
                 </p>
-                <span class="imax2_s1">信条</span>
+                <span class="imax2_s1">我和我的家乡</span>
                 <span class="imax2_s2">购票</span>
               </div>
             </div></a>
           <a href="#">
             <div
               class="imax2_3"
-              style="background-image: url(img/mt/mt-imax/盗梦空间.jpg)"
+              style="background-image: url(img/mt/mt-imax/08.jpg)"
             >
               <div class="">
                 <p class="imax2_p1">
                   观众评
-                  <span>9.1</span>
+                  <span>9.2</span>
                 </p>
-                <span class="imax2_s1">盗梦空间</span>
+                <span class="imax2_s1">一点就到家</span>
                 <span class="imax2_s2">购票</span>
               </div>
             </div></a>
           <a href="#">
             <div
               class="imax2_4"
-              style="background-image: url(img/mt/mt-imax/我在时间尽头等你.jpg)"
+              style="background-image: url(img/mt/mt-imax/09.jpg)"
             >
               <div class="">
                 <p class="imax2_p1">
                   观众评
-                  <span>7.9</span>
+                  <span>7</span>
                 </p>
-                <span class="imax2_s1">我在时间尽头...</span>
+                <span class="imax2_s1">喜宝</span>
                 <span class="imax2_s2">购票</span>
               </div>
             </div></a>
           <a href="#">
             <div
               class="imax2_5"
-              style="background-image: url(img/mt/mt-imax/小妇人.jpg)"
+              style="background-image: url(img/mt/mt-imax/10.jpg)"
             >
               <div class="">
                 <p class="imax2_p1">
                   观众评
-                  <span>8.8</span>
+                  <span>9.1</span>
                 </p>
-                <span class="imax2_s1">小妇人</span>
+                <span class="imax2_s1">夺冠</span>
                 <span class="imax2_s2">购票</span>
               </div>
             </div></a>
         </div>
+        <div class="imax2" :style="{'margin-left':-1190*trim+'px'}" v-show="willShow">
+          <a href="#">
+            <div
+              class="imax2_1"
+              style="background-image: url(img/mt/mt-imax/001.jpg)"
+            >
+              <div class="">
+                <p class="imax2_p1">
+                  150565
+                  <span>人想看</span>
+                </p>
+                <span class="imax2_s1">数码宝贝</span>
+                <span class="imax2_s2">购票</span>
+              </div>
+            </div></a>
+          <a href="#">
+            <div
+              class="imax2_2"
+              style="background-image: url(img/mt/mt-imax/002.jpg)"
+            >
+              <div class="">
+                <p class="imax2_p1">
+                  502044
+                  <span>人想看</span>
+                </p>
+                <span class="imax2_s1">月半爱丽丝</span>
+                <span class="imax2_s2">购票</span>
+              </div>
+            </div></a>
+          <a href="#">
+            <div
+              class="imax2_3"
+              style="background-image: url(img/mt/mt-imax/003.jpg)"
+            >
+              <div class="">
+                <p class="imax2_p1">
+                  38302
+                  <span>人想看</span>
+                </p>
+                <span class="imax2_s1">网络凶灵</span>
+                <span class="imax2_s2">购票</span>
+              </div>
+            </div></a>
+          <a href="#">
+            <div
+              class="imax2_4"
+              style="background-image: url(img/mt/mt-imax/004.jpg)"
+            >
+              <div class="">
+                <p class="imax2_p1">
+                  605
+                  <span>人想看</span>
+                </p>
+                <span class="imax2_s1">我的村我的家</span>
+                <span class="imax2_s2">购票</span>
+              </div>
+            </div></a>
+          <a href="#">
+            <div
+              class="imax2_5"
+              style="background-image: url(img/mt/mt-imax/005.jpg)"
+            >
+              <div class="">
+                <p class="imax2_p1">
+                  142
+                  <span>人想看</span>
+                </p>
+                <span class="imax2_s1">创富二代</span>
+                <span class="imax2_s2">购票</span>
+              </div>
+            </div></a>
+          <a href="#">
+            <div
+              class="imax2_1"
+              style="background-image: url(img/mt/mt-imax/006.jpg)"
+            >
+              <div class="">
+                <p class="imax2_p1">
+                  7171
+                  <span>人想看</span>
+                </p>
+                <span class="imax2_s1">重生小确幸</span>
+                <span class="imax2_s2">购票</span>
+              </div>
+            </div></a>
+          <a href="#">
+            <div
+              class="imax2_2"
+              style="background-image: url(img/mt/mt-imax/007.jpg)"
+            >
+              <div class="">
+                <p class="imax2_p1">
+                  3717
+                  <span>人想看</span>
+                </p>
+                <span class="imax2_s1">龙神之子</span>
+                <span class="imax2_s2">购票</span>
+              </div>
+            </div></a>
+          <a href="#">
+            <div
+              class="imax2_3"
+              style="background-image: url(img/mt/mt-imax/008.jpg)"
+            >
+              <div class="">
+                <p class="imax2_p1">
+                  25588
+                  <span>人想看</span>
+                </p>
+                <span class="imax2_s1">风平浪静</span>
+                <span class="imax2_s2">购票</span>
+              </div>
+            </div></a>
+          <a href="#">
+            <div
+              class="imax2_4"
+              style="background-image: url(img/mt/mt-imax/009.jpg)"
+            >
+              <div class="">
+                <p class="imax2_p1">
+                  8149
+                  <span>人想看</span>
+                </p>
+                <span class="imax2_s1">未来的未来</span>
+                <span class="imax2_s2">购票</span>
+              </div>
+            </div></a>
+          <a href="#">
+            <div
+              class="imax2_5"
+              style="background-image: url(img/mt/mt-imax/010.jpg)"
+            >
+              <div class="">
+                <p class="imax2_p1">
+                  2080
+                  <span>人想看</span>
+                </p>
+                <span class="imax2_s1">光</span>
+                <span class="imax2_s2">购票</span>
+              </div>
+            </div></a>
+        </div>
+        <!-- 左右箭头 -->
+        <ul class="direction" v-show="carShow">
+        <li class="left" @click="carleft">
+          <svg
+            class="icon"
+            width="20px"
+            height="20px"
+            viewBox="0 0 1050 1010"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="#ffffff"
+              d="M481.233 904c8.189 0 16.379-3.124 22.628-9.372 12.496-12.497 12.496-32.759 0-45.256L166.488 512l337.373-337.373c12.496-12.497 12.496-32.758 0-45.255-12.498-12.497-32.758-12.497-45.256 0l-360 360c-12.496 12.497-12.496 32.758 0 45.255l360 360c6.249 6.249 14.439 9.373 22.628 9.373z"
+            />
+          </svg>
+        </li>
+        <li class="right" @click="carright">
+          <svg
+            class="icon"
+            width="20px"
+            height="20px"
+            viewBox="0 0 1010 1010"
+            version="1.1"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill="#ffffff"
+              d="M557.179 904c-8.189 0-16.379-3.124-22.628-9.372-12.496-12.497-12.496-32.759 0-45.256L871.924 512 534.551 174.627c-12.496-12.497-12.496-32.758 0-45.255 12.498-12.497 32.758-12.497 45.256 0l360 360c12.496 12.497 12.496 32.758 0 45.255l-360 360c-6.249 6.249-14.439 9.373-22.628 9.373z"
+            />
+          </svg>
+        </li>
+      </ul>
       </div>
       
     </div>
@@ -1137,6 +1347,7 @@
 </template>
 
 <script>
+import carousel1 from '../components/Carousel1'
 export default {
   data(){
     return{
@@ -1148,7 +1359,11 @@ export default {
       doingShow:true,
       willShow:false,
       zhengzhouShow:true,
-      luoyangShow:false
+      luoyangShow:false,
+      carShow:false,
+      trim:0,
+      islogin:false,
+      username:""
     }
   },
   methods:{
@@ -1197,8 +1412,33 @@ export default {
     luoyang_pop(){
       this.zhengzhouShow=false;
       this.luoyangShow=true
+    },
+    car_pop1(){
+      this.carShow=true;
+    },
+    car_pop2(){
+      this.carShow=false;
+    },
+    carleft(){
+      this.trim=0;
+    },
+    carright(){
+      this.trim=1;
+    },
+    local(){
+      var theme=localStorage.getItem("uname");
+      if(theme==null||theme==""){
+        this.islogin=false
+      }else{
+        this.username=localStorage.getItem("uname");
+        this.islogin=true
+      }
     }
-  }
+  },
+  mounted(){
+      this.local()
+  },
+  components:{carousel1},
 }
 </script>
 
@@ -1248,6 +1488,9 @@ export default {
   .yinchang {
     display: block;
   }
+}
+.body{
+  background:#f8f8f8;
 }
 body::after {
   content: "";
@@ -1387,6 +1630,13 @@ body::after {
   height: 59px;
   margin: 0 auto;
   margin-bottom: 4px;
+}
+.img{
+  width: 47px;
+  height: 47px;
+  border-radius: 50%;
+  border: 4px solid #e5e5e5;
+  margin-left: 85px;
 }
 .header_right2-3_2 {
   width: 96px;
@@ -1535,7 +1785,7 @@ body::after {
   position: relative;
   cursor: pointer;
 }
-.imax2::after {
+.imax2::after,.fn-row::after {
   content: "";
   display: block;
   clear: both;
@@ -1546,8 +1796,9 @@ body::after {
   position: relative;
 }
 .imax2 {
-  width: 10000px;
+  width: 2550px;
   margin-bottom: 30px;
+  transition-duration: 0.5s;
 }
 .imax2_1 {
   width: 214px;
@@ -1780,5 +2031,44 @@ body::after {
   line-height: 15px;
   margin-top: 10px;
   display: inline-block;
+}
+/* 左右箭头 */
+.left,
+.right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.left {
+  left: 3%;
+  padding-left: 12px;
+  padding-top: 10px;
+}
+.right {
+  right: 3%;
+  padding-right: 12px;
+  padding-top: 10px;
+}
+.right svg{
+  margin-left: 7px;
+}
+/* 我的个人中心 */
+.fn-row{
+  padding: 0 15px;
+}
+.fn-list{
+  width: 33.3%;
+  float: left;
+  text-align: center;
+}
+.fn-list p{
+  font-size: 12px;
+  color: #222;
+  margin: 5px 0;
 }
 </style>

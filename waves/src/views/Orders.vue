@@ -7,57 +7,57 @@
       <div style="float: left">
         <!-- 我的美团 -->
         <div class="mymt">
-          <p><a href="/account">我的美团</a></p>
-          <p><a href="/orders">我的订单</a></p>
+          <p><router-link to="/account">我的美团</router-link></p>
+          <p><router-link to="/orders">我的订单</router-link></p>
           <ul>
             <li>
               <a href="#">全部订单</a>
-              <c>></c>
+              <span class="spa">></span>
             </li>
             <li>
               <a href="#">待付款</a>
-              <c>></c>
+              <span class="spa">></span>
             </li>
             <li>
               <a href="#">待使用</a>
-              <c>></c>
+              <span class="spa">></span>
             </li>
             <li>
               <a href="#">待评价</a>
-              <c>></c>
+               <span class="spa">></span>
             </li>
             <li>
               <a href="#">退款/售后</a>
-              <c>></c>
+               <span class="spa">></span>
             </li>
           </ul>
-          <p class="group"><a href="/collections">我的收藏</a></p>
+          <p class="group"><router-link to="/collections">我的收藏</router-link></p>
           <ul>
             <li>
               <a href="#">收藏的商家</a>
-              <c>></c>
+              <span class="spa">></span>
             </li>
             <li>
               <a href="#">收藏的团购</a>
-              <c>></c>
+              <span class="spa">></span>
             </li>
           </ul>
-          <p class="group"><a href="/vouchers">抵用券</a></p>
+          <p class="group"><router-link to="/vouchers">抵用券</router-link></p>
           <ul>
             <li>
               <a href="#">可用劵</a>
-              <c>></c>
+              <span class="spa">></span>
             </li>
             <li>
               <a href="#">失效劵</a>
-              <c>></c>
+              <span class="spa">></span>
             </li>
           </ul>
-          <p class="group"><a href="/setting">个人信息</a></p>
+          <p class="group"><router-link to="/setting">个人信息</router-link></p>
           <ul>
             <li>
               <a href="#">账户信息</a>
-              <c>></c>
+              <span class="spa">></span>
             </li>
           </ul>
         </div>
@@ -84,8 +84,30 @@
             <li>退款/售后</li>
           </ul>
         </div>
-        <div>
-          <p class="orders_text">您暂时还没有订单</p>
+        <div class="order_dingdan" >
+          <p class="orders_text" v-show="noShow">您暂时还没有订单</p>
+          <div v-for="(value,i) of sql" :key="i" class="text_1">
+            <div class="order_img">
+                <a href=""><img :src="value.pic_path"></a>
+            </div>
+            <div class="order_info order_img" >
+              <a href=""> <p>{{value.u_title}}</p></a>
+            
+              <p>
+                <span>下单时间：</span>
+                <span>{{value.times}}</span>
+              </p>
+              <p>
+                <span>数量：</span>
+                <span>{{value.num}}</span>
+              </p>
+            </div>
+            <div class="order_price order_img">
+              <span>总价：￥</span>
+              <span>{{value.num*value.total_fee}}</span>
+            </div>
+            <div class="order_status order_img">待付款</div>
+          </div>
         </div>
         <div class="btn_box">
           <a href="#" class="left_arrow"
@@ -105,7 +127,42 @@
   </div>
 </template>
 
+<script>
+export default {
+  data(){
+    return{
+      sql:[],
+      noShow:true
+    }
+  },
+  created(){
+    this.$router.go
+  },
+  mounted(){
+    this.axios.get('/order').then(res=>{
+      if(res.data.code==1){
+        this.noShow=false;
+        console.log(res.data);
+        this.sql = res.data.result;
+      }else{
+        this.noShow=true;
+      }
+      
+    });
+  }
+}
+</script>
+
 <style scoped>
+.spa{
+  /* margin-left: 100px; */
+ float: right;
+}
+.text_1::after{
+content: "";
+clear: both;
+display: block;
+}
 .orders_center {
   margin: 20px auto;
   width: 1190px;
@@ -119,11 +176,10 @@
   padding-bottom: 20px;
 }
 .mymt > p {
-  font-size: 16px;
-  color: #222;
   margin: 15px 20px 0 30px;
 }
 .mymt p a {
+  font-size: 16px;
   color: #222;
 }
 .mymt > p > a:hover {
@@ -195,7 +251,6 @@
   cursor: pointer;
 }
 .orders_text {
-  border-top: 1px solid #e5e5e5;
   padding: 40px 0;
   text-align: center;
   font-size: 14px;
@@ -229,5 +284,57 @@
     content: "";
     display: block;
     clear: both;
+}
+/* 订单详情 */
+.order_dingdan{
+  padding: 20px 0;
+  border-top: 1px solid #e5e5e5;
+}
+.order_dingdan::after{
+  display: block;
+  content: "";
+  clear: both;
+}
+.order_img{
+  float: left;
+}
+.order_img img{
+  width: 90px;
+  height: 90px;
+  border-radius: 4px;
+}
+.order_info{
+  height: 90px;width: 325px;
+  position: relative;
+  margin-left: 15px;
+}
+.order_info a>p{
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 300px;
+}
+.order_info>p span{
+  color: #666;
+  font-size: 12px;
+  height: 18px;
+}
+.order_price{
+  font-size: 12px;
+  color: #666;
+  line-height: 90px;
+  text-align: center;
+  width: 200px;
+
+}
+.order_status{
+  font-size: 12px;
+  color: #333;
+  line-height: 90px;
+  text-align: center;
+  width: 100px;
 }
 </style>

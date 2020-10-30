@@ -475,6 +475,7 @@ export default{
 
 methods:{
 	fun(){
+		// 分页查询
 		this.axios.get("/move_index?n= " + this.n).then(res=>{
 
 			this.data=res.data.results;	
@@ -495,6 +496,7 @@ methods:{
 		
 	},
 	ren(e){
+		// 按照人气排序
 		this.inn=e.target.dataset.num
 		if(this.inn == 3){
 			this.data.sort((a,b)=>{

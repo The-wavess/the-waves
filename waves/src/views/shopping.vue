@@ -28,10 +28,8 @@
 				</tr>
 			</tbody>
 		</table>
-		
-     <div class=" row discount">
-
-		</div>
+		<div class=" row discount">
+</div>
 		<div class=" row price">
 			<span class="total-price">
 				应付金额：
@@ -44,54 +42,47 @@
 			将发送美团券码至手机号码
 			<a href="#">绑定新的手机号</a>
 		</div>
-		<router-link :to="{path:'/pay',query:{u_id,u_price,u_number}}">
+		<router-link to="/pay"> 
 			<div class="form-submit">
-				<input type="button" class="btn" value="提交订单" />
+				<input type="button" class="btn" value="提交订单"/>
 			</div>
 		</router-link>
 	</div>
 </template>
 <script>
-// import {mapMtation, mapMutations} from 'vuex'
 	export default {
    data(){
     return{
 		cart:[],
-		number: 0,
-		get_total:0
-
+		number:0
 		 }
 	},
-		methods: {
-			add(index) {
-
-				this.number++
-			},
-			reduce(index) {
-				if (this.number === 0) {
-					return
-				}
-				this.number--
+	methods:{
+		add(index) {
+		 this.number++
+		},
+		reduce(index) {
+		if (this.number === 0) {
+		return
+		}
+		this.number--
 			}
 		},
- computed:{
- totalPrice(){
-	let total = 0;
-  for(let i = 0; i<this.cart.length;i++){
-		total += this.number * this.cart[i].u_price;
-  }
-	 return total;
-	 this.get_total = this.total;
-   }
-	 
+  computed:{
+    totalPrice(){
+    let total = 0;
+    for(let i = 0; i<this.cart.length;i++){
+	    total += this.number * this.cart[i].u_price;
+     }
+	    return total;
+	  }
  },
  mounted(){
   this.axios.get('/buy').then(res=>{
 			 this.cart= res.data.results;
 	})
  }
- }
- 
+	}
 </script>
 <style scoped>
 .bd{

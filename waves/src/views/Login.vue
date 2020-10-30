@@ -1,48 +1,57 @@
 <template>
   <div>
     <header class="login_header">
-      <a href="/"><img class="logo" src="img/header/logo.png" /></a>
+      <router-link to="/"
+        ><img class="logo" src="img/header/logo.png"
+      /></router-link>
     </header>
     <div class="login_content">
       <div class="login_cont1">
         <img src="img/mt/登录.jpg" />
       </div>
       <div class="login_cont2">
-        <form action="" method="post">
-          <div class="login_cont2_1"></div>
-          <span>
-            账号登记
-            <a href="#"
-              >手机动态码登录<img class="shouji" src="img/mt/手机.png"
-            /></a>
-          </span>
-          <div class="phone">
-            <span class="text"> +86&nbsp;> </span>
-            <input class="text" type="hidden" name="countrycode" value="86" />
-            <input type="text" v-model="phone" placeholder="手机号" />
-          </div>
-          <div class="phone">
-            <img src="img/mt/密 码.png" />
-            <input
-              class="pwd"
-              type="password"
-              v-model="upwd"
-              name=""
-              placeholder="密码"
-            />
-          </div>
-          
-          <div class="login_cont2_4">
-            <a href="#">忘记密码？</a>
-          </div>
-          <div class="login_cont2_5">
-            <input type="button" @click="handle" value="登录" />
-          </div>
-          <p class="login_cont2_6">
-            还没有账号？
-            <a href="/register">免费注册</a>
-          </p>
-        </form>
+        <div class="login_cont2_1"></div>
+        <span>
+          账号登记
+          <a href="#"
+            >手机动态码登录<img class="shouji" src="img/mt/手机.png"
+          /></a>
+        </span>
+        <div class="phone">
+          <span class="text"> +86&nbsp;> </span>
+          <input
+            class="text"
+            type="hidden"
+            value="86"
+          />
+          <input
+            type="text"
+            v-model="phone"
+            placeholder="手机号"
+            clearable
+          />
+        </div>
+        <div class="phone">
+          <img src="img/mt/密 码.png" />
+          <input
+            class="pwd"
+            type="password"
+            v-model="upwd"
+            name=""
+            placeholder="密码"
+          />
+        </div>
+        <div class="login_cont2_4">
+          <a href="#">忘记密码？</a>
+        </div>
+        <div class="login_cont2_5">
+          <button type="primary" @click="handle">登录</button>
+        </div>
+        <p class="login_cont2_6">
+          还没有账号？
+          <router-link to="/register">免费注册</router-link>
+        </p>
+
         <div class="login_cont3">
           <h3 class="">
             <span>用合作网站账号登录</span>
@@ -76,25 +85,36 @@
 
 <script>
 export default {
-  data(){
-    return{
-      phone:'',
-      upwd:''
-
-    }
+  data() {
+    return {
+      phone: "",
+      upwd: "",
+      uname:"",
+    };
   },
-  methods:{
-    handle(){
-      // console.log(this.phone)
-      this.axios.post('/logins','phone='+this.phone+'&upwd='+this.upwd).then(res=>{
-       console.log(res.data)
-      })
-    }
-  }
-}
+  methods: {
+    handle() {
+      this.axios
+        .post('/login', "phone=" + this.phone + "&upwd=" + this.upwd)
+        .then((res) => {
+          if(res.data.code==1){  
+            this.uname= res.data.result[0].uname;
+            console.log(this.uname)
+            localStorage.setItem("uname",this.uname);
+            this.$router.push("/")
+          }else{
+            alert("用户名或密码错误")
+          }
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>
+.phone .pwd:focus {
+  border-color: #ffc300;
+}
 .login_header {
   width: 980px;
   height: auto;
@@ -126,10 +146,6 @@ export default {
   margin: 0 auto;
   float: left;
 }
-.login_cont2 > form {
-  margin-bottom: 10px;
-  position: relative;
-}
 .login_cont2_1 {
   height: 18px;
   margin: 10px auto;
@@ -139,11 +155,11 @@ export default {
   border-radius: 2px;
   visibility: hidden;
 }
-.login_cont2 > form > span {
+.login_cont2 span {
   color: #666;
   font-size: 14px;
 }
-.login_cont2 > form > span > a {
+.login_cont2 span > a {
   padding-right: 16px;
   color: #666;
   float: right;
@@ -165,7 +181,7 @@ export default {
   position: relative;
 }
 .phone > input {
-  width: 180px;
+  width: 214px;
   height: 24px;
   padding: 5px;
   border: 0;
@@ -175,11 +191,11 @@ export default {
   width: 20px;
   height: 20px;
   top: 15%;
-  left: 5px;
+  left: 14px;
   position: absolute;
 }
 .pwd {
-  margin-left: 25px;
+  margin-left: 45px;
 }
 .login_cont2_4 {
   padding-bottom: 8px;
@@ -197,7 +213,7 @@ export default {
 .login_cont2_5 {
   padding: 8px 0 8px 0;
 }
-.login_cont2_5 > input {
+.login_cont2_5 > button {
   width: 270px;
   color: #222;
   background-image: linear-gradient(135deg, #ffd000, #ffbd00 100%);
@@ -212,6 +228,9 @@ export default {
 .login_cont2_6 {
   font-size: 14px;
   color: #666;
+}
+.login_cont2_6 a{
+  color: #fe8c00;
 }
 .login_cont3 {
   width: 270px;
@@ -274,16 +293,16 @@ export default {
   color: #999;
 }
 /* 验证手机号的样式 */
-.msg{
+.msg {
   padding: 3px 10px;
   font-size: 12px;
 }
-.success{
+.success {
   border: 1px solid green;
   background: rgb(98, 255, 98);
   color: green;
 }
-.fail{
+.fail {
   border: 1px solid red;
   background: pink;
   color: red;
